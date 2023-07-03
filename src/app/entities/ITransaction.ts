@@ -6,6 +6,8 @@ interface ITransaction {
     status: STATUS_PAYMENT
 }
 
+
+
 //métodos para pagamento.......................................................
 const METHOD_PAYMENT: { [x: string]: 'CREDITO' | 'PIX' } = {
     CREDITO: 'CREDITO',

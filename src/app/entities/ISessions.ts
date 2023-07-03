@@ -1,3 +1,4 @@
+import IArenaLocal from "./IArenaLocal"
 import IProducts from "./IProducts"
 import UserClient from "./IUserClient"
 
@@ -8,6 +9,7 @@ interface ISessions {
     user: UserClient
     status: SESSION_STATUS
     products: IProducts[]
+    location: IArenaLocal
 }
 
 const SESSION_STATUS: { [x: string]: 'RUNNING' | 'PAUSED' } = {
