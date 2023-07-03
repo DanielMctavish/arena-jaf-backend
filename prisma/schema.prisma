@@ -9,3 +9,37 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model UserAdm {
+  id         String   @id @default(cuid())
+  email      String   @unique
+  nome       String
+  senha      String
+  avatar_url String
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+}
+
+model ArenaLocal {
+  id String @id @default(cuid())
+}
+
+model Sessions {
+  id String @id @default(cuid())
+}
+
+model Transactions {
+  id String @id @default(cuid())
+}
+
+model UserClient {
+  id String @id @default(cuid())
+}
+
+model UserColab {
+  id String @id @default(cuid())
+}
+
+model Machines {
+  id String @id @default(cuid())
+}
