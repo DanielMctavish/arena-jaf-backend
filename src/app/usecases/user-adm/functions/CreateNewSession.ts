@@ -1,5 +1,5 @@
-import ISessions from "../../entities/ISessions";
-import { AdmResponses } from "../IUserAdm_usecases";
+import ISessions from "../../../entities/ISessions";
+import { AdmResponses } from "../../IUserAdm_usecases";
 
 export const createNewSession = (data: ISessions): Promise<AdmResponses> => {
 

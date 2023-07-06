@@ -1,4 +1,4 @@
-import { AdmResponses } from "../IUserAdm_usecases";
+import { AdmResponses } from "../../IUserAdm_usecases";
 
 export const deleteNewProduct = (product_id: string): Promise<AdmResponses> => {
 

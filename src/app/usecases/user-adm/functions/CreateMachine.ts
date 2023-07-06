@@ -1,5 +1,5 @@
-import IMachines from "../../entities/IMachines";
-import { AdmResponses } from "../IUserAdm_usecases";
+import IMachines from "../../../entities/IMachines";
+import { AdmResponses } from "../../IUserAdm_usecases";
 
 export const createMachine = (data: IMachines): Promise<AdmResponses> => {
 

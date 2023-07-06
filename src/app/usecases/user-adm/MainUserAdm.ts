@@ -5,22 +5,22 @@ import ISessions, { SESSION_STATUS } from "../../entities/ISessions";
 import IUserClient from "../../entities/IUserClient";
 import IUserAdm_usecases, { AdmResponses } from "../IUserAdm_usecases";
 
-import { addCreditToClient } from "./AddCreditToClient";
-import { createArenaLocation } from "./CreateArenaLocation";
-import { createMachine } from "./CreateMachine";
-import { createNewClient } from "./CreateNewClient";
-import { login } from "./Login";
-import { logout } from "./Logout";
-import { createNewSession } from "./CreateNewSession";
-import { deleteArenaLocation } from "./DeleteArenaLocation";
-import { listAllClients } from "./ListAllClients";
-import { deleteClient } from "./DeleteClient";
-import { deleteMachine } from "./DeleteMachine";
-import { deleteNewProduct } from "./DeleteNewProduct";
-import { registerNewProduct } from "./RegisterNewProduct";
-import { updateClient } from "./UpdateClient";
-import { updateNewProduct } from "./UpdateNewProduct";
-import { updateArenaLocation } from "./UpdateArenaLocation";
+import { addCreditToClient } from "./functions/AddCreditToClient";
+import { createArenaLocation } from "./functions/CreateArenaLocation";
+import { createMachine } from "./functions/CreateMachine";
+import { createNewClient } from "./functions/CreateNewClient";
+import { login } from "./functions/Login";
+import { logout } from "./functions/Logout";
+import { createNewSession } from "./functions/CreateNewSession";
+import { deleteArenaLocation } from "./functions/DeleteArenaLocation";
+import { listAllClients } from "./functions/ListAllClients";
+import { deleteClient } from "./functions/DeleteClient";
+import { deleteMachine } from "./functions/DeleteMachine";
+import { deleteNewProduct } from "./functions/DeleteNewProduct";
+import { registerNewProduct } from "./functions/RegisterNewProduct";
+import { updateClient } from "./functions/UpdateClient";
+import { updateNewProduct } from "./functions/UpdateNewProduct";
+import { updateArenaLocation } from "./functions/UpdateArenaLocation";
 
 class MainUserAdm implements IUserAdm_usecases {
 

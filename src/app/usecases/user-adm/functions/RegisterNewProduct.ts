@@ -1,5 +1,5 @@
-import IProducts from "../../entities/IProducts";
-import { AdmResponses } from "../IUserAdm_usecases";
+import IProducts from "../../../entities/IProducts";
+import { AdmResponses } from "../../IUserAdm_usecases";
 
 export const registerNewProduct = (data: IProducts): Promise<AdmResponses> => {
 

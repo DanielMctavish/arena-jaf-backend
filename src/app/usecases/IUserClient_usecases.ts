@@ -1,7 +1,11 @@
 import ITransaction from "../entities/ITransaction";
 import IUserClient from "../entities/IUserClient";
 
-interface ClientResponse { }
+interface ClientResponse {
+    status_code: number,
+    msg: string,
+    body: Object
+}
 
 interface IUserClient_usecases {
     registerClient(data: IUserClient): Promise<ClientResponse>

@@ -2,8 +2,10 @@ import IProducts from "../entities/IProducts"
 import ISessions, { SESSION_STATUS } from "../entities/ISessions"
 import IUserClient from "../entities/IUserClient"
 
-interface ColabResponse {
-
+export interface ColabResponse {
+    status_code: number,
+    msg: string,
+    body: Object
 }
 
 interface IUserColab_usecases {
@@ -16,12 +18,14 @@ interface IUserColab_usecases {
 
     createNewClient(data: IUserClient): Promise<ColabResponse>
     updateClient(data: IUserClient): Promise<ColabResponse>
-    deleteClient(data: IUserClient): Promise<ColabResponse>
-    listAllClients(id_adm: string): Promise<ColabResponse[]>
-    addCreditToClient(value: number): void
+    deleteClient(user_id: string): Promise<ColabResponse>
+    listAllClients(id_adm: string): Promise<ColabResponse>
+    addCreditToClient(value: number): Promise<ColabResponse>
 
     registerNewProduct(data: IProducts): Promise<ColabResponse>
-    deleteNewProduct(data: IProducts): Promise<ColabResponse>
+    deleteNewProduct(product_id: string): Promise<ColabResponse>
     updateNewProduct(data: IProducts): Promise<ColabResponse>
 
 }
+
+export default IUserColab_usecases;

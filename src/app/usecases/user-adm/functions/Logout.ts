@@ -1,4 +1,4 @@
-import { AdmResponses } from "../IUserAdm_usecases";
+import { AdmResponses } from "../../IUserAdm_usecases";
 
 export const logout = (token: string): Promise<AdmResponses> => {
 

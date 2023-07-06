@@ -1,4 +1,4 @@
-import { AdmResponses } from "../IUserAdm_usecases";
+import { AdmResponses } from "../../IUserAdm_usecases";
 
 export const deleteMachine = (machine_id: string): Promise<AdmResponses> => {
 

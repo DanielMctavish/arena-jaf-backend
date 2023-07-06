@@ -1,5 +1,5 @@
-import IUserClient from "../../entities/IUserClient";
-import { AdmResponses } from "../IUserAdm_usecases";
+import IUserClient from "../../../entities/IUserClient";
+import { AdmResponses } from "../../IUserAdm_usecases";
 
 export const createNewClient = (data: IUserClient): Promise<AdmResponses> => {
 

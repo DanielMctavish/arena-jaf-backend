@@ -1,5 +1,5 @@
-import IArenaLocal from "../../entities/IArenaLocal";
-import { AdmResponses } from "../IUserAdm_usecases";
+import IArenaLocal from "../../../entities/IArenaLocal";
+import { AdmResponses } from "../../IUserAdm_usecases";
 
 export const deleteArenaLocation = (data: IArenaLocal): Promise<AdmResponses> => {
 
