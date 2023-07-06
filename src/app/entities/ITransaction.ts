@@ -1,5 +1,6 @@
 interface ITransaction {
     id: string
+    user_id: string
     value: number
     transaction_type: TRANSACTION_TYPE
     method: METHOD_PAYMENT
