@@ -8,13 +8,13 @@ interface IArenaLocal {
     id: string;
     nome: string;
     end_url_google: string;
-    proprietario: IUserAdm;
+    proprietario?: IUserAdm;
     userAdmId: string;
     proprietario_colab?: UserColab | null;
     userColabId?: string | null;
-    Sessions: ISessions[];
-    Products: IProducts[];
-    Machines: IMachines[];
+    Sessions?: ISessions[];
+    Products?: IProducts[];
+    Machines?: IMachines[];
 }
 
 

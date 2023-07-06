@@ -1,10 +1,10 @@
 import IMachines from "../entities/IMachines"
 
-interface IMachineRepositorie{
+interface IMachineRepositorie {
     create(data: IMachines): Promise<IMachines>
-    find(machine_id: string): Promise<IMachines>
-    update(data: Partial<IMachines>): Promise<IMachines>
-    delete(data: IMachines): Promise<IMachines>
+    find(machine_id: string): Promise<IMachines | null>
+    update(machine_id: string, data: IMachines): Promise<IMachines>
+    delete(machine_id: string): Promise<IMachines>
 }
 
 export default IMachineRepositorie

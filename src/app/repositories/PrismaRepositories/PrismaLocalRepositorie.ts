@@ -6,7 +6,7 @@ const prisma = new PrismaClient()
 
 class PrismaLocalRepositorie implements ILocalRepositorie {
 
-    async create(data: IArenaLocal): Promise<Partial<IArenaLocal>> {
+    async create(data: IArenaLocal): Promise<IArenaLocal> {
         return await prisma.arenaLocal.create({
             data: {
                 nome: data.nome,
@@ -17,14 +17,14 @@ class PrismaLocalRepositorie implements ILocalRepositorie {
         })
     }
 
-    async find(local_id: string): Promise<Partial<IArenaLocal | null>> {
+    async find(local_id: string): Promise<IArenaLocal | null> {
         return await prisma.arenaLocal.findFirst({
             where: {
                 id: local_id
             }
         })
     }
-    async update(local_id: string, data: Partial<IArenaLocal>): Promise<Partial<IArenaLocal>> {
+    async update(local_id: string, data: Partial<IArenaLocal>): Promise<IArenaLocal> {
         return await prisma.arenaLocal.update({
             where: { id: local_id },
             data: {
@@ -35,7 +35,7 @@ class PrismaLocalRepositorie implements ILocalRepositorie {
             }
         })
     }
-    async delete(local_id: string): Promise<Partial<IArenaLocal>> {
+    async delete(local_id: string): Promise<IArenaLocal> {
         return await prisma.arenaLocal.delete({
             where: {
                 id: local_id

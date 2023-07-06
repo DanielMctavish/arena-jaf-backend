@@ -97,13 +97,13 @@ model UserClient {
 
 model Machines {
   id                 String     @id @default(cuid())
-  local              ArenaLocal @relation(fields: [arenaLocalId], references: [id])
   arenaLocalId       String     @unique
   proprietario       UserAdm    @relation(fields: [userAdmId], references: [id])
   userAdmId          String     @unique
+  status             String
+  local              ArenaLocal? @relation(fields: [arenaLocalId], references: [id])
   proprietario_colab UserColab? @relation(fields: [userColabId], references: [id])
   userColabId        String?    @unique
-  status             String
   sessoes            Sessions[]
 }
 
