@@ -6,7 +6,7 @@ export const addCreditToClient = async (transaction: ITransaction): Promise<AdmR
 
     const Transaction = new PrismaTransactionRepositorie();
 
-    const currentTransaction = Transaction.create(transaction)
+    const currentTransaction = await Transaction.create(transaction)
 
     return new Promise((resolve, reject) => {
 
