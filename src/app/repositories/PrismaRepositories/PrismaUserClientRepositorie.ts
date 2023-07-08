@@ -18,6 +18,12 @@ class PrismaUserClientRepositorie implements IUserClientRepositorie {
         })
     }
 
+    async findAll(adm_id: string): Promise<IUserClient[]> {
+        return await prisma.userClient.findMany({
+            where: { proprietario_id: adm_id }
+        })
+    }
+
     async update(client_id: string, data: Partial<IUserClient>): Promise<IUserClient> {
         return await prisma.userClient.update({
             where: { id: client_id },
