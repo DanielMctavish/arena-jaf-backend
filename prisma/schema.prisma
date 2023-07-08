@@ -48,18 +48,19 @@ model ArenaLocal {
 }
 
 model Sessions {
-  id           String         @id @default(cuid())
-  duration     Int
-  value        Float
-  user         UserClient     @relation(fields: [userClientId], references: [id])
-  status       SESSION_STATUS
-  products     Products[]
-  location     ArenaLocal     @relation(fields: [arenaLocalId], references: [id])
-  userClientId String         @unique
-  arenaLocalId String         @unique
-  Machines     Machines       @relation(fields: [machinesId], references: [id])
-  machinesId   String         @unique
-  created_at   DateTime       @default(now())
+  id              String         @id @default(cuid())
+  proprietario_id String
+  duration        Int
+  value           Float
+  user            UserClient     @relation(fields: [userClientId], references: [id])
+  userClientId    String         @unique
+  status          SESSION_STATUS
+  products        Products[]
+  location        ArenaLocal     @relation(fields: [arenaLocalId], references: [id])
+  arenaLocalId    String         @unique
+  Machine         Machines       @relation(fields: [machineId], references: [id])
+  machineId       String         @unique
+  created_at      DateTime       @default(now())
 }
 
 model Products {
@@ -96,14 +97,14 @@ model UserClient {
 }
 
 model Machines {
-  id                 String     @id @default(cuid())
-  arenaLocalId       String     @unique
-  proprietario       UserAdm    @relation(fields: [userAdmId], references: [id])
-  userAdmId          String     @unique
+  id                 String      @id @default(cuid())
+  arenaLocalId       String      @unique
+  proprietario       UserAdm     @relation(fields: [userAdmId], references: [id])
+  userAdmId          String      @unique
   status             String
   local              ArenaLocal? @relation(fields: [arenaLocalId], references: [id])
-  proprietario_colab UserColab? @relation(fields: [userColabId], references: [id])
-  userColabId        String?    @unique
+  proprietario_colab UserColab?  @relation(fields: [userColabId], references: [id])
+  userColabId        String?     @unique
   sessoes            Sessions[]
 }
 

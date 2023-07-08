@@ -7,4 +7,5 @@ interface ITransactionRepositorie {
     delete(data: ITransaction): Promise<ITransaction>
 }
 
-export default ITransactionRepositorie;
+
+export default ITransactionRepositorie; 
