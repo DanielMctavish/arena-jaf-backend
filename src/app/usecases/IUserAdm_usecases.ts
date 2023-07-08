@@ -2,6 +2,7 @@ import IArenaLocal from "../entities/IArenaLocal"
 import IMachines from "../entities/IMachines"
 import IProducts from "../entities/IProducts"
 import ISessions, { SESSION_STATUS } from "../entities/ISessions"
+import ITransaction from "../entities/ITransaction"
 import IUserClient from "../entities/IUserClient"
 
 export interface AdmResponses {
@@ -24,7 +25,7 @@ interface IUserAdm_usecases {
     updateClient(data: IUserClient): Promise<AdmResponses>
     deleteClient(client_id: string): Promise<AdmResponses>
     listAllClients(id_adm: string): Promise<AdmResponses>
-    addCreditToClient(value: number): Promise<AdmResponses>
+    addCreditToClient(transaction: ITransaction): Promise<AdmResponses>
 
     createArenaLocation(data: IArenaLocal): Promise<AdmResponses>
     updateArenaLocation(data: IArenaLocal): Promise<AdmResponses>

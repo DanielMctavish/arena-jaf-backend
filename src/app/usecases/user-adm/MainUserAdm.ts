@@ -21,11 +21,12 @@ import { registerNewProduct } from "./functions/RegisterNewProduct";
 import { updateClient } from "./functions/UpdateClient";
 import { updateNewProduct } from "./functions/UpdateNewProduct";
 import { updateArenaLocation } from "./functions/UpdateArenaLocation";
+import ITransaction from "../../entities/ITransaction";
 
 class MainUserAdm implements IUserAdm_usecases {
 
-    addCreditToClient(value: number): Promise<AdmResponses> {
-        return addCreditToClient(value)
+    addCreditToClient(transaction: ITransaction): Promise<AdmResponses> {
+        return addCreditToClient(transaction)
     }
 
     createArenaLocation(data: IArenaLocal): Promise<AdmResponses> {
