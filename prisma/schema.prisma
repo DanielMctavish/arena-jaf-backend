@@ -78,7 +78,8 @@ model Products {
 
 model Transactions {
   id               String           @id @default(cuid())
-  user_id          String
+  payer_id         String
+  benefited_id     String
   value            Float
   transaction_type TRANSACTION_TYPE
   method           METHOD_PAYMENT
@@ -115,7 +116,7 @@ enum SESSION_STATUS {
 
 enum TRANSACTION_TYPE {
   PRODUCT
-  CREDIT
+  MACHINE_CREDIT
   SPLIT
 }
 

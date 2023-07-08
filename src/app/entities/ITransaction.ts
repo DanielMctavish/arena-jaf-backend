@@ -1,6 +1,7 @@
 interface ITransaction {
     id: string
-    user_id: string
+    payer_id: string
+    benefited_id:string
     value: number
     transaction_type: TRANSACTION_TYPE
     method: METHOD_PAYMENT
@@ -27,9 +28,9 @@ const STATUS_PAYMENT: { [x: string]: 'APPROVED' | 'PENDENT' | 'CANCEL' } = {
 export type STATUS_PAYMENT = typeof STATUS_PAYMENT[keyof typeof STATUS_PAYMENT]
 
 //tipo de transações de pagamento.......................................................
-const TRANSACTION_TYPE: { [x: string]: 'PRODUCT' | 'CREDIT' | 'SPLIT' } = {
+const TRANSACTION_TYPE: { [x: string]: 'PRODUCT' | 'MACHINE_CREDIT' | 'SPLIT' } = {
     PRODUCT: 'PRODUCT',
-    CREDIT: 'CREDIT',
+    MACHINE_CREDIT: 'MACHINE_CREDIT',
     SPLIT: 'SPLIT'
 }
 
