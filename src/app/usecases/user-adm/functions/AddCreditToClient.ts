@@ -1,21 +1,33 @@
 import { AdmResponses } from "../../IUserAdm_usecases"
 import ITransaction from "../../../entities/ITransaction";
 import PrismaTransactionRepositorie from "../../../repositories/PrismaRepositories/PrismaTransactionRepositorie";
+import PrismaUserClientRepositorie from "../../../repositories/PrismaRepositories/PrismaUserClientRepositorie";
 
-export const addCreditToClient = async (transaction: ITransaction): Promise<AdmResponses> => {
+import validator from "../../../../security/validations/Joi";
+import { transactionSchema } from "../../../../security/validations/schemmas-joi/TransactionSchemma";
+
+export const addCreditToClient = async (client_id: string, transaction: ITransaction): Promise<AdmResponses> => {
 
     const Transaction = new PrismaTransactionRepositorie();
-
     const currentTransaction = await Transaction.create(transaction)
+    const UserClientRepositorie = new PrismaUserClientRepositorie()
+    const currentClient = await UserClientRepositorie.update(client_id, { saldo: currentTransaction.value })
 
     return new Promise((resolve, reject) => {
 
-        if (!currentTransaction) {
-            reject(({ status_code: 401, msg: 'falha ao realizar transação', body: currentTransaction }))
+        if (!transaction) {
+            return reject({ status_code: 404, msg: 'nenhuma transação identificada', body: currentTransaction })
         }
 
-        if (!transaction) {
-            reject({ status_code: 404, msg: 'crédito adicionado', body: currentTransaction })
+        validator(transactionSchema, transaction)
+
+        if (!currentTransaction) {
+            return reject(({ status_code: 401, msg: 'falha ao realizar transação', body: currentTransaction }))
+        }
+
+
+        if (!currentClient) {
+            return reject({ status_code: 404, msg: 'falha ao tentar atualizar saldo do cliente', body: currentTransaction })
         }
 
         const response: AdmResponses = { status_code: 200, msg: 'crédito adicionado', body: currentTransaction }
