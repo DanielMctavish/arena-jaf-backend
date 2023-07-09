@@ -1,6 +1,8 @@
 import IArenaLocal from "../../../entities/IArenaLocal";
 import { AdmResponses } from "../../IUserAdm_usecases";
 import PrismaLocalRepositorie from "../../../repositories/PrismaRepositories/PrismaLocalRepositorie";
+import validator from "../../../../security/validations/Joi";
+import { arenaLocalSchema } from "../../../../security/validations/schemmas-joi/ArenaLocalSchemma";
 
 export const createArenaLocation = async (data: IArenaLocal): Promise<AdmResponses> => {
     const LocalRepositorie = new PrismaLocalRepositorie()
@@ -10,6 +12,8 @@ export const createArenaLocation = async (data: IArenaLocal): Promise<AdmRespons
         if (!data) {
             return reject({ body: { msg: 'nenhum valor retornado' } })
         }
+
+        validator(arenaLocalSchema, data)
 
         if (!currentLocal) {
             return reject({ status_code: 401, msg: 'falha ao tentar criar um local', body: currentLocal })

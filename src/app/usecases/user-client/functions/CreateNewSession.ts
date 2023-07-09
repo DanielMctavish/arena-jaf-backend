@@ -1,6 +1,8 @@
 import ISessions from "../../../entities/ISessions";
 import { AdmResponses } from "../../IUserAdm_usecases";
 import PrismaSessionRepositorie from "../../../repositories/PrismaRepositories/PrismaSessionRepositorie";
+import validator from "../../../../security/validations/Joi";
+import { sessionSchema } from "../../../../security/validations/schemmas-joi/SessionsSchemma";
 
 export const createNewSession = async (data: ISessions): Promise<AdmResponses> => {
     const SessionRepositorie = new PrismaSessionRepositorie()
@@ -11,7 +13,9 @@ export const createNewSession = async (data: ISessions): Promise<AdmResponses> =
             return reject({ status_code: 404, msg: 'nenhum data retornado', body: currentSession })
         }
 
-        if(!currentSession)return reject({ status_code: 400, msg: 'erro ao tentar criar sessão', body: currentSession })
+        validator(sessionSchema, data)
+
+        if (!currentSession) return reject({ status_code: 400, msg: 'erro ao tentar criar sessão', body: currentSession })
 
         const response: AdmResponses = { status_code: 201, msg: 'sessão criada com sucesso', body: currentSession }
         resolve(response);

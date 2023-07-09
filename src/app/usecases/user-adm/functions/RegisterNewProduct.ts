@@ -1,6 +1,8 @@
 import IProducts from "../../../entities/IProducts";
 import { AdmResponses } from "../../IUserAdm_usecases";
 import PrismaProductRepositorie from "../../../repositories/PrismaRepositories/PrismaProductRepositorie";
+import validator from "../../../../security/validations/Joi";
+import { productSchema } from "../../../../security/validations/schemmas-joi/ProductSchemma";
 
 export const registerNewProduct = async (data: IProducts): Promise<AdmResponses> => {
 
@@ -11,6 +13,8 @@ export const registerNewProduct = async (data: IProducts): Promise<AdmResponses>
         if (!data) {
             return reject({ body: { msg: 'nenhum valor retornado' } })
         }
+
+        validator(productSchema, data)
 
         if (!currentProduct) return reject({ status_code: 400, msg: 'erro ao tentar criar o produto', body: currentProduct })
 

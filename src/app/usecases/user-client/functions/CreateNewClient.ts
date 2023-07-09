@@ -1,17 +1,19 @@
 import IUserClient from "../../../entities/IUserClient";
 import { ClientResponse } from "../../IUserClient_usecases";
 import PrismaUserClientRepositorie from "../../../repositories/PrismaRepositories/PrismaUserClientRepositorie";
+import validator from "../../../../security/validations/Joi";
+import { userClientSchema } from "../../../../security/validations/schemmas-joi/UserClientSchemma";
 
 export const createNewClient = async (data: IUserClient): Promise<ClientResponse> => {
-
     const ClientRepositorie = new PrismaUserClientRepositorie()
     const currentClient = await ClientRepositorie.create(data)
-
 
     return new Promise((resolve, reject) => {
         if (!data) {
             return reject({ status_code: 404, msg: 'nenhum valor retornado', body: currentClient })
         }
+
+        validator(userClientSchema, data)
 
         if (!currentClient) return reject({ status_code: 400, msg: 'erro ao tentar criar cliente', body: currentClient })
 

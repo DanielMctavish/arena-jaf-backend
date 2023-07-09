@@ -1,6 +1,8 @@
 import IProducts from "../../../entities/IProducts";
 import { AdmResponses } from "../../IUserAdm_usecases";
 import PrismaProductRepositorie from "../../../repositories/PrismaRepositories/PrismaProductRepositorie";
+import validator from "../../../../security/validations/Joi";
+import { productSchema } from "../../../../security/validations/schemmas-joi/ProductSchemma";
 
 export const updateNewProduct = async (product_id: string, data: IProducts): Promise<AdmResponses> => {
     const ProductRepositorie = new PrismaProductRepositorie()
@@ -11,7 +13,10 @@ export const updateNewProduct = async (product_id: string, data: IProducts): Pro
         if (!data) {
             return reject({ body: { msg: 'nenhum valor retornado' } })
         }
-        if(!currentProduct)return reject({status_code: 400, msg: 'erro ao tentar atualizar o produto', body: currentProduct})
+
+        validator(productSchema, data)
+
+        if (!currentProduct) return reject({ status_code: 400, msg: 'erro ao tentar atualizar o produto', body: currentProduct })
 
         const response: AdmResponses = { status_code: 200, msg: 'produto atualizado com sucesso', body: currentProduct }
         resolve(response);

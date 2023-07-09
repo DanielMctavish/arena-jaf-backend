@@ -1,3 +1,5 @@
+import validator from "../../../../security/validations/Joi";
+import { productSchema } from "../../../../security/validations/schemmas-joi/ProductSchemma";
 import IProducts from "../../../entities/IProducts";
 import PrismaProductRepositorie from "../../../repositories/PrismaRepositories/PrismaProductRepositorie";
 import { ColabResponse } from "../../IUserColab_usecases";
@@ -11,6 +13,8 @@ export const registerNewProduct = async (data: IProducts): Promise<ColabResponse
         if (!data) {
             return reject({ body: { msg: 'nenhum valor retornado' } })
         }
+
+        validator(productSchema, data)
 
         if (!currentProduct) return reject({ status_code: 400, msg: 'erro ao tentar criar o produto', body: currentProduct })
 

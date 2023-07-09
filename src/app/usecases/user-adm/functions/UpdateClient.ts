@@ -1,6 +1,8 @@
 import IUserClient from "../../../entities/IUserClient";
 import { AdmResponses } from "../../IUserAdm_usecases";
 import PrismaUserClientRepositorie from "../../../repositories/PrismaRepositories/PrismaUserClientRepositorie";
+import validator from "../../../../security/validations/Joi";
+import { userClientSchema } from "../../../../security/validations/schemmas-joi/UserClientSchemma";
 
 export const updateClient = async (client_id: string, data: IUserClient): Promise<AdmResponses> => {
     const UserClientRepositorie = new PrismaUserClientRepositorie()
@@ -10,7 +12,9 @@ export const updateClient = async (client_id: string, data: IUserClient): Promis
         if (!data) {
             return reject({ body: { msg: 'nenhum valor retornado' } })
         }
-        
+
+        validator(userClientSchema, data)
+
         if (!currentClientRepositorie) return reject({ status_code: 400, msg: 'erro ao tentar atualizar cliente', body: currentClientRepositorie })
 
         const response: AdmResponses = { status_code: 200, msg: 'cliente atualizado com sucesso', body: currentClientRepositorie }
