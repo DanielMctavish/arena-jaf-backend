@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
-import administratorRoute from "./routes/AdministratorRoute"
+import administratorRoutes from "./routes/AdministratorRoutes"
 
 
 const app = express()
@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(cors())
 
-app.use("/adm", administratorRoute)
+app.use("/adm", administratorRoutes)
 
 app.use('/', (req, res) => {
     res.send('arena JAF | Oficial route')

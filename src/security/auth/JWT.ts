@@ -1,21 +1,25 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 
-enum TOKEN_TYPES {
-    LOGIN_ADM = "LOGIN_ADM",
-    LOGIN_CLIENT = "LOGIN_CLIENT",
-    LOGIN_COLAB = "LOGIN_COLAB",
-}
 
-export const generatedToken = (type: TOKEN_TYPES, user_id: string): string => {
+export const generatedToken = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): void => {
     const privateSecret: string = process.env.TOKEN_SECRET || "";
 
-    const token = jwt.sign({ type, user_id }, privateSecret, {
-        algorithm: "RS512",
-        expiresIn: "1h",
-    });
+    const token = jwt.sign({
+        type: req.params.type,
+        user_id: req.params.user_id
+    },
+        privateSecret,
+        {
+            algorithm: "RS512",
+            expiresIn: "1h",
+        });
 
-    return token;
+    res.status(201).json({ msg: "token criado com sucesso", token });
 };
 
 export const verifyToken = (
