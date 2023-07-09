@@ -33,10 +33,18 @@ class PrismaSessionRepositorie implements ISessionRepositorie {
 
     }
 
+    async findAll(client_id: string): Promise<ISessions[]> {
+        return await prisma.sessions.findMany({
+            where: {
+                userClientId: client_id
+            }
+        })
+    }
+
     async update(session_id: string, data: Partial<ISessions>): Promise<ISessions> {
 
         const { arenaLocalId, duration, machineId, proprietario_id, userClientId, value, status } = data
-        
+
         return await prisma.sessions.update({
             where: { id: session_id },
             data: {

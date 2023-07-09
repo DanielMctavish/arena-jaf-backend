@@ -9,6 +9,7 @@ export const deleteNewProduct = async (product_id: string): Promise<AdmResponses
         if (!product_id) {
             return reject({ body: { msg: 'nenhum valor retornado' } })
         }
+        
         if(!currentProduct){
             return reject({status_code: 400, msg: 'erro ao tentar deleter o produto', body: currentProduct})
         }

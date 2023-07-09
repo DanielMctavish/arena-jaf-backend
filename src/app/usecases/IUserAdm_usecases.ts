@@ -25,7 +25,7 @@ interface IUserAdm_usecases {
     updateClient(data: IUserClient): Promise<AdmResponses>
     deleteClient(client_id: string): Promise<AdmResponses>
     listAllClients(id_adm: string): Promise<AdmResponses>
-    addCreditToClient(transaction: ITransaction): Promise<AdmResponses>
+    addCreditToClient(client_id: string, transaction: ITransaction): Promise<AdmResponses>
 
     createArenaLocation(data: IArenaLocal): Promise<AdmResponses>
     updateArenaLocation(data: IArenaLocal): Promise<AdmResponses>

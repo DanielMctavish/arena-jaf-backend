@@ -1,5 +1,6 @@
 interface IUserClient {
     id: string
+    email:string
     proprietario_id: string
     saldo: number
     nome: string

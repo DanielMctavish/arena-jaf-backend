@@ -24,6 +24,12 @@ class PrismaUserClientRepositorie implements IUserClientRepositorie {
         })
     }
 
+    async findByEmail(client_email: string): Promise<IUserClient | null> {
+        return await prisma.userClient.findFirst({
+            where: { email: client_email }
+        })
+    }
+
     async update(client_id: string, data: Partial<IUserClient>): Promise<IUserClient> {
         return await prisma.userClient.update({
             where: { id: client_id },

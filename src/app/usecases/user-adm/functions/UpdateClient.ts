@@ -10,6 +10,7 @@ export const updateClient = async (client_id: string, data: IUserClient): Promis
         if (!data) {
             return reject({ body: { msg: 'nenhum valor retornado' } })
         }
+        
         if (!currentClientRepositorie) return reject({ status_code: 400, msg: 'erro ao tentar atualizar cliente', body: currentClientRepositorie })
 
         const response: AdmResponses = { status_code: 200, msg: 'cliente atualizado com sucesso', body: currentClientRepositorie }

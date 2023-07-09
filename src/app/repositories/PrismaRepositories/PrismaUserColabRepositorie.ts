@@ -5,6 +5,7 @@ import IUserColab from "../../entities/IUserColab";
 const prisma = new PrismaClient()
 
 class PrismaUserColabRepositorie implements IUserColabRepositorie {
+
     async create(data: IUserColab): Promise<IUserColab> {
         return await prisma.userColab.create({
             data: {
@@ -16,6 +17,7 @@ class PrismaUserColabRepositorie implements IUserColabRepositorie {
             }
         })
     }
+
     async update(colab_id: string, data: Partial<IUserColab>): Promise<IUserColab> {
         return await prisma.userColab.update({
             where: { id: colab_id },
@@ -28,9 +30,17 @@ class PrismaUserColabRepositorie implements IUserColabRepositorie {
             }
         })
     }
+
     async find(colab_id: string): Promise<IUserColab | null> {
         return await prisma.userColab.findFirst({ where: { id: colab_id } })
     }
+
+    async findByEmail(colab_email: string): Promise<IUserColab | null> {
+        return await prisma.userColab.findFirst({
+            where: { email: colab_email }
+        })
+    }
+
     async delete(colab_id: string): Promise<IUserColab> {
         return await prisma.userColab.delete({ where: { id: colab_id } })
     }
