@@ -14,6 +14,6 @@ const STATUS_PAYMENT = {
 //tipo de transações de pagamento.......................................................
 const TRANSACTION_TYPE = {
     PRODUCT: 'PRODUCT',
-    CREDIT: 'CREDIT',
+    MACHINE_CREDIT: 'MACHINE_CREDIT',
     SPLIT: 'SPLIT'
 };

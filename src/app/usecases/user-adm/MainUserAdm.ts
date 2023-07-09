@@ -25,8 +25,8 @@ import ITransaction from "../../entities/ITransaction";
 
 class MainUserAdm implements IUserAdm_usecases {
 
-    addCreditToClient(transaction: ITransaction): Promise<AdmResponses> {
-        return addCreditToClient(transaction)
+    addCreditToClient(client_id: string, transaction: ITransaction): Promise<AdmResponses> {
+        return addCreditToClient(client_id, transaction)
     }
 
     createArenaLocation(data: IArenaLocal): Promise<AdmResponses> {
@@ -53,8 +53,8 @@ class MainUserAdm implements IUserAdm_usecases {
         return createNewSession(data)
     }
 
-    deleteArenaLocation(data: IArenaLocal): Promise<AdmResponses> {
-        return deleteArenaLocation(data)
+    deleteArenaLocation(local_id: string): Promise<AdmResponses> {
+        return deleteArenaLocation(local_id)
     }
 
     listAllClients(id_adm: string): Promise<AdmResponses> {
@@ -81,16 +81,16 @@ class MainUserAdm implements IUserAdm_usecases {
         return registerNewProduct(data)
     }
 
-    updateClient(data: IUserClient): Promise<AdmResponses> {
-        return updateClient(data)
+    updateClient(client_id: string, data: IUserClient): Promise<AdmResponses> {
+        return updateClient(client_id, data)
     }
 
-    updateNewProduct(data: IProducts): Promise<AdmResponses> {
-        return updateNewProduct(data)
+    updateNewProduct(product_id: string, data: IProducts): Promise<AdmResponses> {
+        return updateNewProduct(product_id, data)
     }
 
-    updateArenaLocation(data: IArenaLocal): Promise<AdmResponses> {
-        return updateArenaLocation(data)
+    updateArenaLocation(local_id: string, data: IArenaLocal): Promise<AdmResponses> {
+        return updateArenaLocation(local_id, data)
     }
 
     resumeSession(session_status: SESSION_STATUS): void {

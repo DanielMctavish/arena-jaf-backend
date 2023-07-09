@@ -12,7 +12,7 @@ interface IUserClient_usecases {
     registerClient(data: IUserClient): Promise<ClientResponse>
     login(email: string, password: string): Promise<ClientResponse>
     logout(email: string, accessToken: string): Promise<ClientResponse>
-    AddCredit(transaction: ITransaction): Promise<ClientResponse>
+    AddCredit(client_id: string, transaction: ITransaction): Promise<ClientResponse>
     createNewSession(data: ISessions): Promise<ClientResponse>
     listSessions(user_id: string): Promise<ClientResponse>
 }

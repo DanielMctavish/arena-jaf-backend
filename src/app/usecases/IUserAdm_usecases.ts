@@ -22,18 +22,18 @@ interface IUserAdm_usecases {
     resumeSession(session_status: SESSION_STATUS): void
 
     createNewClient(data: IUserClient): Promise<AdmResponses>
-    updateClient(data: IUserClient): Promise<AdmResponses>
+    updateClient(client_id: string, data: IUserClient): Promise<AdmResponses>
     deleteClient(client_id: string): Promise<AdmResponses>
     listAllClients(id_adm: string): Promise<AdmResponses>
     addCreditToClient(client_id: string, transaction: ITransaction): Promise<AdmResponses>
 
     createArenaLocation(data: IArenaLocal): Promise<AdmResponses>
-    updateArenaLocation(data: IArenaLocal): Promise<AdmResponses>
-    deleteArenaLocation(data: IArenaLocal): Promise<AdmResponses>
+    updateArenaLocation(local_id: string, data: IArenaLocal): Promise<AdmResponses>
+    deleteArenaLocation(local_id: string): Promise<AdmResponses>
 
     registerNewProduct(data: IProducts): Promise<AdmResponses>
     deleteNewProduct(product_id: string): Promise<AdmResponses>
-    updateNewProduct(data: IProducts): Promise<AdmResponses>
+    updateNewProduct(product_id: string, data: IProducts): Promise<AdmResponses>
 }
 
 export default IUserAdm_usecases

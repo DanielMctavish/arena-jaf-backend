@@ -14,6 +14,7 @@ import { registerNewProduct } from "./functions/RegisterNewProduct";
 import { updateNewProduct } from "./functions/UpdateNewProduct";
 import { deleteNewProduct } from "./functions/DeleteNewProduct";
 import IProducts from "../../entities/IProducts";
+import ITransaction from "../../entities/ITransaction";
 
 
 class MainUserColab implements IUserColab_usecases {
@@ -21,14 +22,14 @@ class MainUserColab implements IUserColab_usecases {
     createNewClient(data: IUserClient): Promise<ColabResponse> {
         return createNewClient(data)
     }
-    addCreditToClient(value: number): Promise<ColabResponse> {
-        return addCreditToClient(value)
+    addCreditToClient(client_id: string, data: ITransaction): Promise<ColabResponse> {
+        return addCreditToClient(client_id, data)
     }
     deleteClient(user_id: string): Promise<ColabResponse> {
         return deleteClient(user_id)
     }
-    updateClient(data: IUserClient): Promise<ColabResponse> {
-        return updateClient(data)
+    updateClient(client_id: string, data: IUserClient): Promise<ColabResponse> {
+        return updateClient(client_id, data)
     }
     listAllClients(id_adm: string): Promise<ColabResponse> {
         return listAllClients(id_adm)
@@ -55,8 +56,8 @@ class MainUserColab implements IUserColab_usecases {
     registerNewProduct(data: IProducts): Promise<ColabResponse> {
         return registerNewProduct(data)
     }
-    updateNewProduct(data: IProducts): Promise<ColabResponse> {
-        return updateNewProduct(data)
+    updateNewProduct(product_id: string, data: IProducts): Promise<ColabResponse> {
+        return updateNewProduct(product_id, data)
     }
     deleteNewProduct(product_id: string): Promise<ColabResponse> {
         return deleteNewProduct(product_id)

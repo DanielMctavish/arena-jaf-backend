@@ -20,8 +20,8 @@ class MainUserClient implements IUserClient_usecases {
     logout(email: string, accessToken: string): Promise<ClientResponse> {
         return logout(accessToken)
     }
-    AddCredit(transaction: ITransaction): Promise<ClientResponse> {
-        return addCreditToClient(transaction)
+    AddCredit(client_id: string, transaction: ITransaction): Promise<ClientResponse> {
+        return addCreditToClient(client_id, transaction)
     }
     createNewSession(data: ISessions): Promise<ClientResponse> {
         return createNewSession(data)
