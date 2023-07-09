@@ -6,11 +6,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv/config");
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
+const AdministratorRoute_1 = __importDefault(require("./routes/AdministratorRoute"));
 const app = (0, express_1.default)();
 app.use(express_1.default.urlencoded({ extended: false }));
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
-//app.use('/', any_routes)
+app.use("/adm", AdministratorRoute_1.default);
+app.use('/', (req, res) => {
+    res.send('arena JAF | Oficial route');
+});
 app.listen(process.env.PORT || 3001, () => {
     console.log('[ArenaJaf] Server running');
 });
