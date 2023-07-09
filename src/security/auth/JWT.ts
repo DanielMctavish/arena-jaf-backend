@@ -9,17 +9,21 @@ export const generatedToken = (
 ): void => {
     const privateSecret: string = process.env.TOKEN_SECRET || "";
 
-    const token = jwt.sign({
-        type: req.params.type,
-        user_id: req.params.user_id
-    },
-        privateSecret,
-        {
-            algorithm: "RS512",
-            expiresIn: "1h",
-        });
+    try {
+        const token = jwt.sign({
+            type: req.params.type,
+            user_id: req.params.user_id
+        },
+            privateSecret,
+            {
+                expiresIn: "1h",
+            });
 
-    res.status(201).json({ msg: "token criado com sucesso", token });
+        res.status(201).json({ msg: "token criado com sucesso", token });
+
+    } catch (error: any) {
+        res.status(500).json({ msg: error.message })
+    }
 };
 
 export const verifyToken = (
