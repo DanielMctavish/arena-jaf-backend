@@ -19,7 +19,6 @@ const TRANSACTION_TYPE = {
 };
 
 export const transactionSchema: Joi.ObjectSchema = Joi.object({
-    id: Joi.string().required(),
     payer_id: Joi.string().required(),
     benefited_id: Joi.string().required(),
     value: Joi.number().required(),

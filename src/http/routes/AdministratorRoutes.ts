@@ -3,8 +3,12 @@ const router = Router()
 
 import { generatedToken, verifyToken } from '../../security/auth/JWT'
 
+import { ApplyUseCase } from '../middlewares/ApplyUseCase'
+import { addCreditToClient } from "../../app/usecases/user-adm/functions/AddCreditToClient"
 
-router.post("/add-credit", verifyToken)
+
+
+router.post("/add-credit", verifyToken, (req, res) => { ApplyUseCase(res, addCreditToClient, req.query, req.body) })
 router.post("/create-local", verifyToken)
 router.post("/create-machine", verifyToken)
 router.post("/create-client", verifyToken)

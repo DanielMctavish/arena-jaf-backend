@@ -39,7 +39,7 @@ model ArenaLocal {
   nome               String
   end_url_google     String
   proprietario       UserAdm    @relation(fields: [userAdmId], references: [id])
-  userAdmId          String     @unique
+  userAdmId          String     
   proprietario_colab UserColab? @relation(fields: [userColabId], references: [id])
   userColabId        String?    @unique
   Sessions           Sessions[]
@@ -53,13 +53,13 @@ model Sessions {
   duration        Int
   value           Float
   user            UserClient     @relation(fields: [userClientId], references: [id])
-  userClientId    String         @unique
+  userClientId    String         
   status          SESSION_STATUS
   products        Products[]
   location        ArenaLocal     @relation(fields: [arenaLocalId], references: [id])
-  arenaLocalId    String         @unique
+  arenaLocalId    String         
   Machine         Machines       @relation(fields: [machineId], references: [id])
-  machineId       String         @unique
+  machineId       String         
   created_at      DateTime       @default(now())
 }
 
@@ -72,18 +72,19 @@ model Products {
   local           ArenaLocal @relation(fields: [arenaLocalId], references: [id])
   Sessions        Sessions?  @relation(fields: [sessionsId], references: [id])
   sessionsId      String?
-  arenaLocalId    String     @unique
+  arenaLocalId    String     
   proprietario_id String
 }
 
 model Transactions {
-  id               String           @id @default(cuid())
-  payer_id         String
-  benefited_id     String
-  value            Float
-  transaction_type TRANSACTION_TYPE
-  method           METHOD_PAYMENT
-  status           STATUS_PAYMENT
+  id                  String           @id @default(cuid())
+  payer_id            String
+  benefited_id        String
+  value               Float
+  transaction_type    TRANSACTION_TYPE
+  product_description String?
+  method              METHOD_PAYMENT
+  status              STATUS_PAYMENT
 }
 
 model UserClient {
@@ -100,13 +101,14 @@ model UserClient {
 
 model Machines {
   id                 String      @id @default(cuid())
-  arenaLocalId       String      @unique
+  nano_id            String
+  arenaLocalId       String      
   proprietario       UserAdm     @relation(fields: [userAdmId], references: [id])
-  userAdmId          String      @unique
+  userAdmId          String      
   status             String
   local              ArenaLocal? @relation(fields: [arenaLocalId], references: [id])
   proprietario_colab UserColab?  @relation(fields: [userColabId], references: [id])
-  userColabId        String?     @unique
+  userColabId        String?     
   sessoes            Sessions[]
 }
 

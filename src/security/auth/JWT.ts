@@ -41,8 +41,7 @@ export const verifyToken = (
             return;
         }
 
-        const tokenVerified = jwt.verify(token, privateSecret) as JwtPayload; // 2 - Verificar se o token é válido e obter o payload
-        req.body.token = tokenVerified;
+        jwt.verify(token, privateSecret)
 
         next(); // Continuar para o próximo middleware
     } catch (error: any) {

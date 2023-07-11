@@ -5,6 +5,7 @@ import IUserColab from "./IUserColab";
 
 interface IMachines {
     id: string;
+    nano_id: string
     arenaLocalId: string;
     proprietario?: IUserAdm;
     userAdmId: string;

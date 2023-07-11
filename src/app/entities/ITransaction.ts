@@ -1,9 +1,10 @@
 interface ITransaction {
     id: string
     payer_id: string
-    benefited_id:string
+    benefited_id: string
     value: number
     transaction_type: TRANSACTION_TYPE
+    product_description?: string | null
     method: METHOD_PAYMENT
     status: STATUS_PAYMENT
 }
