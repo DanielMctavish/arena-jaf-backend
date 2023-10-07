@@ -1,20 +1,27 @@
 import { AdmResponses } from "../../IUserAdm_usecases";
 import PrismaUserAdmRepositorie from "../../../repositories/PrismaRepositories/PrismaUserAdmRepositorie";
+//import { verifyPassword } from "../../../../security/auth/Bcrypt";
 
-export const login = async (email: string, password: string): Promise<AdmResponses> => {
+export const login = (email: string, password: string): Promise<AdmResponses> => {
     const UserAdmRepositorie = new PrismaUserAdmRepositorie()
-    const currentAdministrator = await UserAdmRepositorie.findByEmail(email)
 
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         if (!email || !password) {
-            return reject({ body: { msg: 'nenhum valor retornado' } })
+            reject({ status_code: 404, msg: 'nenhum campo enviado' })
         }
 
-        if (currentAdministrator?.email !== email) return reject()
-        if (currentAdministrator.senha !== password) return reject()
+        try {
+            const currentAdministrator = await UserAdmRepositorie.findByEmail(email)
 
-        const response: AdmResponses = { status_code: 200, msg: 'Adm logado com sucesso', body: currentAdministrator }
-        resolve(response);
+            //verifyPassword()
+
+            resolve({ status_code: 200, msg: 'logado!', body: currentAdministrator })
+        } catch (error: any) {
+            reject({ status_code: 500, msg: error.message })
+        }
+
+
+
     })
 
 }

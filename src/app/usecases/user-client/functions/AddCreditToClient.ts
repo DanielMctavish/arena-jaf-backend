@@ -1,11 +1,11 @@
 import ITransaction from "../../../entities/ITransaction";
-import { ClientResponse } from "../../IUserClient_usecases";
 import PrismaUserClientRepositorie from "../../../repositories/PrismaRepositories/PrismaUserClientRepositorie";
 import PrismaTransactionRepositorie from "../../../repositories/PrismaRepositories/PrismaTransactionRepositorie";
 import validator from "../../../../security/validations/Joi";
 import { transactionSchema } from "../../../../security/validations/schemmas-joi/TransactionSchemma";
+import IClientResponses from "../../../../http/res/IClientResponses";
 
-export const addCreditToClient = async (client_id: string, transaction: ITransaction): Promise<ClientResponse> => {
+export const addCreditToClient = async (client_id: string, transaction: ITransaction): Promise<IClientResponses> => {
 
     const Transaction = new PrismaTransactionRepositorie();
     const currentTransaction = await Transaction.create(transaction)
@@ -30,7 +30,7 @@ export const addCreditToClient = async (client_id: string, transaction: ITransac
             return reject({ status_code: 404, msg: 'falha ao tentar atualizar saldo do cliente', body: currentTransaction })
         }
 
-        const response: ClientResponse = { status_code: 200, msg: 'crédito adicionado', body: currentTransaction }
+        const response: IClientResponses = { status_code: 200, message: { msg: 'crédito adicionado', body: currentTransaction } }
         resolve(response);
     });
 }

@@ -1,16 +1,13 @@
-import { ClientResponse } from "../../IUserClient_usecases";
+import IClientResponses from "../../../../http/res/IClientResponses";
 
-export const logout = (token: string): Promise<ClientResponse> => {
-
-
-
+export const logout = (token: string): Promise<IClientResponses> => {
 
     return new Promise((resolve, reject) => {
         if (!token) {
             return reject({ body: { msg: 'nenhum token retornado' } })
         }
 
-        const response: ClientResponse = { status_code: 200, msg: 'sessão cliente encerrada', body: {} }
+        const response: IClientResponses = { status_code: 200, message: { msg: 'sessão cliente encerrada' } }
         resolve(response);
     })
 

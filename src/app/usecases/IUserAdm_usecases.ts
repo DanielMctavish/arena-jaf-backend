@@ -3,16 +3,19 @@ import IMachines from "../entities/IMachines"
 import IProducts from "../entities/IProducts"
 import ISessions, { SESSION_STATUS } from "../entities/ISessions"
 import ITransaction from "../entities/ITransaction"
+import IUserAdm from "../entities/IUserAdm"
 import IUserClient from "../entities/IUserClient"
 
 export interface AdmResponses {
     status_code: number,
     msg: string,
-    body: Object
+    body?: Object | null
 }
 interface IUserAdm_usecases {
     login(email: string, password: string): Promise<AdmResponses>
     logout(accessToken: string): Promise<AdmResponses>
+
+    CreateAdm(params: object, data: IUserAdm): Promise<AdmResponses>
 
     createMachine(data: IMachines): Promise<AdmResponses>
     deleteMachine(machine_id: string): Promise<AdmResponses>

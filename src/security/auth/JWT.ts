@@ -7,7 +7,7 @@ export const generatedToken = (
     res: Response,
     next: NextFunction
 ): void => {
-    const privateSecret: string = process.env.TOKEN_SECRET || "";
+    const privateSecret: string = process.env.JWT_SECRET || "";
 
     try {
         const token = jwt.sign({
@@ -34,10 +34,10 @@ export const verifyToken = (
     const privateSecret: string = process.env.TOKEN_SECRET || "";
 
     try {
-        const token = req.headers.authorization?.split(" ")[1]; // 1 - Obter token do cabeçalho "Authorization" (formato: Bearer <token>)
+        const token = req.headers.authorization?.split(" ")[1]; 
 
         if (!token) {
-            res.status(401).json({ message: "Token não fornecido" }); // 5 - Retornar erro de token não fornecido no formato de objeto HTTP
+            res.status(401).json({ message: "Token não fornecido" }); 
             return;
         }
 
@@ -46,11 +46,11 @@ export const verifyToken = (
         next(); // Continuar para o próximo middleware
     } catch (error: any) {
         if (error.name === "JsonWebTokenError") {
-            res.status(401).json({ message: "Token inválido" }); // 3 - Retornar erro de token inválido no formato de objeto HTTP
+            res.status(401).json({ message: "Token inválido" }); 
         } else if (error.name === "TokenExpiredError") {
-            res.status(401).json({ message: "Token expirado" }); // 4 - Retornar erro de token expirado no formato de objeto HTTP
+            res.status(401).json({ message: "Token expirado" }); 
         } else {
-            res.status(500).json({ message: "Erro ao verificar o token" }); // Tratar outros erros de verificação do token
+            res.status(500).json({ message: "Erro ao verificar o token" });
         }
     }
 };

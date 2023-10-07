@@ -49,7 +49,7 @@ class MainUserColab implements IUserColab_usecases {
     login(email: string, password: string): Promise<ColabResponse> {
         return login(email, password)
     }
-    logout(accessToken: string): Promise<ColabResponse> {
+    logout(accessToken: string | null): Promise<ColabResponse> {
         return logout(accessToken)
     }
     //produtos

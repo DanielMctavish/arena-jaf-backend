@@ -1,7 +1,7 @@
-import { ClientResponse } from "../../IUserClient_usecases";
 import PrismaUserClientRepositorie from "../../../repositories/PrismaRepositories/PrismaUserClientRepositorie";
+import IClientResponses from "../../../../http/res/IClientResponses";
 
-export const login = async (email: string, password: string): Promise<ClientResponse> => {
+export const login = async (email: string, password: string): Promise<IClientResponses> => {
     const UserClientRepositorie = new PrismaUserClientRepositorie()
     const currentClient = await UserClientRepositorie.findByEmail(email)
 
@@ -17,7 +17,7 @@ export const login = async (email: string, password: string): Promise<ClientResp
 
         if (!currentClient) return reject({ status_code: 400, msg: 'ao tentar logar cliente', body: currentClient })
 
-        const response: ClientResponse = { status_code: 200, msg: 'Cliente logado com sucesso', body: currentClient }
+        const response: IClientResponses = { status_code: 200, message: { msg: 'Cliente logado com sucesso', body: currentClient } }
         resolve(response);
     })
 

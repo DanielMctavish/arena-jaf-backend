@@ -11,7 +11,8 @@ class PrismaMachineRepositorie implements IMachineRepositorie {
                 arenaLocalId: data.arenaLocalId,
                 userAdmId: data.userAdmId,
                 status: data.status,
-                userColabId: data.userColabId
+                userColabId: data.userColabId,
+                nano_id: data.nano_id
             }
         });
     }

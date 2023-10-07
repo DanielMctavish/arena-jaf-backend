@@ -5,8 +5,8 @@ import IUserClient from "../entities/IUserClient"
 
 export interface ColabResponse {
     status_code: number,
-    msg: string,
-    body: Object
+    msg: string | null,
+    body: Object | null
 }
 
 interface IUserColab_usecases {

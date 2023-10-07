@@ -22,11 +22,17 @@ import { updateClient } from "./functions/UpdateClient";
 import { updateNewProduct } from "./functions/UpdateNewProduct";
 import { updateArenaLocation } from "./functions/UpdateArenaLocation";
 import ITransaction from "../../entities/ITransaction";
+import IUserAdm from "../../entities/IUserAdm";
+import createAdm from "./functions/CreateAdm";
 
 export interface IParams_id {
     id: string
 }
 class MainUserAdm implements IUserAdm_usecases {
+
+    CreateAdm(params: object, data: IUserAdm): Promise<AdmResponses> {
+        return createAdm(data)
+    }
 
     addCreditToClient(params_id: IParams_id, transaction: ITransaction): Promise<AdmResponses> {
         return addCreditToClient(params_id, transaction)

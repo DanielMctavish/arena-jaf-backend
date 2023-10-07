@@ -1,7 +1,7 @@
-import { ClientResponse } from "../../IUserClient_usecases";
 import PrismaSessionRepositorie from "../../../repositories/PrismaRepositories/PrismaSessionRepositorie";
+import IClientResponses from "../../../../http/res/IClientResponses";
 
-export const listAllSessions = async (user_id: string): Promise<ClientResponse> => {
+export const listAllSessions = async (user_id: string): Promise<IClientResponses> => {
     const SessionRepositorie = new PrismaSessionRepositorie()
     const currentSession = await SessionRepositorie.findAll(user_id)
 
@@ -13,7 +13,7 @@ export const listAllSessions = async (user_id: string): Promise<ClientResponse> 
 
         if (!currentSession) return reject({ status_code: 400, msg: 'erro ao listar sessões', body: currentSession })
 
-        const response: ClientResponse = { status_code: 200, msg: 'lista de todos as sessões', body: currentSession }
+        const response: IClientResponses = { status_code: 200, message: { msg: 'lista de todos as sessões', body: currentSession } }
         resolve(response);
     })
 
