@@ -1,7 +1,9 @@
+import IUserAdm from "./IUserAdm"
+
 interface ITransaction {
     id: string
-    payer_id: string
-    benefited_id: string
+    UserAdm?: IUserAdm
+    userAdmId?:string
     value: number
     transaction_type: TRANSACTION_TYPE
     product_description?: string | null
