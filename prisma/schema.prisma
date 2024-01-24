@@ -11,16 +11,17 @@ datasource db {
 }
 
 model UserAdm {
-  id         String       @id @default(cuid())
-  saldo      Float
-  email      String       @unique
-  nome       String
-  senha      String
-  avatar_url String
-  Machines   Machines[]
-  ArenaLocal ArenaLocal[]
-  created_at DateTime     @default(now())
-  updated_at DateTime     @default(now()) @updatedAt
+  id           String         @id @default(cuid())
+  saldo        Float
+  email        String         @unique
+  nome         String
+  senha        String
+  avatar_url   String
+  Machines     Machines[]
+  ArenaLocal   ArenaLocal[]
+  Transactions Transactions[]
+  created_at   DateTime       @default(now())
+  updated_at   DateTime       @default(now()) @updatedAt
 }
 
 model UserColab {
@@ -37,7 +38,7 @@ model UserColab {
 }
 
 model UserClient {
-  id              String     @id @default(cuid())
+  id              String         @id @default(cuid())
   email           String
   proprietario_id String?
   saldo           Float
@@ -46,8 +47,9 @@ model UserClient {
   senha           String
   avatar_url      String
   Sessions        Sessions[]
-  created_at      DateTime   @default(now())
-  updated_at      DateTime   @default(now()) @updatedAt
+  Transactions    Transactions[]
+  created_at      DateTime       @default(now())
+  updated_at      DateTime       @default(now()) @updatedAt
 }
 
 model ArenaLocal {
@@ -99,18 +101,18 @@ model Products {
 
 model Transactions {
   id                  String           @id @default(cuid())
-  payer_id            String
-  benefited_id        String
   value               Float
   transaction_type    TRANSACTION_TYPE
   product_description String?
   method              METHOD_PAYMENT
   status              STATUS_PAYMENT
+  UserAdm             UserAdm?         @relation(fields: [userAdmId], references: [id])
+  userAdmId           String?
+  Client              UserClient?      @relation(fields: [userClientId], references: [id])
+  userClientId        String?
   created_at          DateTime         @default(now())
   updated_at          DateTime         @default(now()) @updatedAt
 }
-
-
 
 model Machines {
   id                 String      @id @default(cuid())
