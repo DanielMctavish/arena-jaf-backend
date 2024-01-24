@@ -14,7 +14,7 @@ export const ApplyUseCase = (res: Response, usecase: Function, params?: object, 
 
             }).catch((err: any) => {
 
-                res.status(500).json(err.message)
+                res.status(500).json(err)
 
             })
     }

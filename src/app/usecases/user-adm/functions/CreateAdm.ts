@@ -10,11 +10,10 @@ const createAdm = (data: IUserAdm): Promise<AdmResponses> => {
 
     return new Promise(async (resolve, reject) => {
         try {
-            const salt = await bcrypt.genSalt(12);
-            const hash = await bcrypt.hash(process.env.CRYPT_SECRET || '01010101', salt);
-            const passwordCrypted = hash
+            const salt = await bcrypt.genSalt(10);
+            const hash = await bcrypt.hash(data.senha, salt)
 
-            const currentNewAdm = await prismaAdm.create({ ...data, senha: passwordCrypted })
+            const currentNewAdm = await prismaAdm.create({ ...data, senha: hash })
             resolve({ status_code: 201, msg: 'adm criado com sucesso!', body: currentNewAdm })
 
         } catch (error: any) {

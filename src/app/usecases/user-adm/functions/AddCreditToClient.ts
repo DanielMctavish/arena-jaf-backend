@@ -8,20 +8,14 @@ import { transactionSchema } from "../../../../security/validations/schemmas-joi
 import { IParams_id } from "../MainUserAdm";
 
 
-export const addCreditToClient = async (params_id: IParams_id, transaction: ITransaction): Promise<AdmResponses> => {
+export const addCreditToClient = async (params: any, data: ITransaction): Promise<AdmResponses> => {
 
-    const { id } = params_id
 
-    //return console.log('observando corpos da requisição ---> ', params_id);
+    return console.log('observando corpos da requisição ---> ', data);
 
     return new Promise(async (resolve, reject) => {
 
-        if (id === undefined) {
-            return reject({ status_code: 403, body: { msg: 'nenhum parâmetro encontrado' } })
-        }
-
-
-        const validationResponse = await validator(transactionSchema, transaction)
+        const validationResponse = await validator(transactionSchema, data)
 
         if (!validationResponse.authenticator && validationResponse.msg !== '"token" is not allowed') {
             console.log('validation alert!', validationResponse);
@@ -33,7 +27,7 @@ export const addCreditToClient = async (params_id: IParams_id, transaction: ITra
 
         try {
             const Transaction = new PrismaTransactionRepositorie();
-            const currentTransaction = await Transaction.create(transaction)
+            const currentTransaction = await Transaction.create(data)
 
             //console.log('observando a operação transaction --> ', currentTransaction);
 

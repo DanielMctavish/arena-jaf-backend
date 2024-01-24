@@ -6,8 +6,8 @@ import MainUserAdm from '../../app/usecases/user-adm/MainUserAdm'
 
 const mainAdm = new MainUserAdm()
 
-router.post("/create-account", (req, res) => { ApplyUseCase(res, mainAdm.CreateAdm, req.query, req.body) })//
-router.post("/add-credit", verifyToken, (req, res) => { ApplyUseCase(res, mainAdm.addCreditToClient, req.query, req.body) })
+router.post("/create-account", (req, res) => { ApplyUseCase(res, mainAdm.CreateAdm, req.query, req.body) })//testado
+router.post("/add-credit", verifyToken, (req, res) => { ApplyUseCase(res, mainAdm.addCreditToClient, req.query, req.body) })//
 router.post("/create-local", verifyToken, (req, res) => { ApplyUseCase(res, mainAdm.createArenaLocation, req.query, req.body) })
 router.post("/create-machine", verifyToken, (req, res) => { ApplyUseCase(res, mainAdm.createMachine, req.query, req.body) })
 router.post("/create-client", verifyToken, (req, res) => { ApplyUseCase(res, mainAdm.createNewClient, req.query, req.body) })
@@ -22,7 +22,7 @@ router.patch("/update-client", verifyToken, (req, res) => { ApplyUseCase(res, ma
 router.patch("/update-product", verifyToken, (req, res) => { ApplyUseCase(res, mainAdm.updateNewProduct, req.query, req.body) })
 
 //ACCESS........................................................
-router.post("/login", generatedToken)
+router.post("/login", (req, res) => { ApplyUseCase(res, mainAdm.login, req.query, req.body) })//testado
 router.post("/logout", verifyToken)
 
 export default router;

@@ -50,8 +50,8 @@ class MainUserAdm implements IUserAdm_usecases {
         return createNewClient(data)
     }
 
-    login(email: string, password: string): Promise<AdmResponses> {
-        return login(email, password)
+    login(query: any, data: Partial<IUserAdm>): Promise<AdmResponses> {
+        return login(data)
     }
 
     logout(accessToken: string): Promise<AdmResponses> {

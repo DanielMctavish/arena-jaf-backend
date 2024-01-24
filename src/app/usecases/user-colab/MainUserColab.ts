@@ -15,6 +15,7 @@ import { updateNewProduct } from "./functions/UpdateNewProduct";
 import { deleteNewProduct } from "./functions/DeleteNewProduct";
 import IProducts from "../../entities/IProducts";
 import ITransaction from "../../entities/ITransaction";
+import { AdmResponses } from "../IUserAdm_usecases";
 
 
 class MainUserColab implements IUserColab_usecases {
@@ -49,7 +50,7 @@ class MainUserColab implements IUserColab_usecases {
     login(email: string, password: string): Promise<ColabResponse> {
         return login(email, password)
     }
-    logout(accessToken: string | null): Promise<ColabResponse> {
+    logout(accessToken: string | null): Promise<AdmResponses> {
         return logout(accessToken)
     }
     //produtos

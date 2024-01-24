@@ -15,7 +15,7 @@ router.post("/create-product", verifyToken)
 router.patch("/update-client", verifyToken)
 router.patch("/update-product", verifyToken)
 
-router.post("/login", generatedToken)
+//router.post("/login", generatedToken)
 router.post("/logout", verifyToken)
 
 export default router;

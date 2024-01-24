@@ -2,6 +2,7 @@ import IProducts from "../entities/IProducts"
 import ISessions, { SESSION_STATUS } from "../entities/ISessions"
 import ITransaction from "../entities/ITransaction"
 import IUserClient from "../entities/IUserClient"
+import { AdmResponses } from "./IUserAdm_usecases"
 
 export interface ColabResponse {
     status_code: number,
@@ -10,8 +11,8 @@ export interface ColabResponse {
 }
 
 interface IUserColab_usecases {
-    login(email: string, password: string): Promise<ColabResponse>
-    logout(accessToken: string): Promise<ColabResponse>
+   // login(email: string, password: string): Promise<ColabResponse>
+    //logout(accessToken: string): Promise<AdmResponses>
 
     createNewSession(data: ISessions): Promise<ColabResponse>
     pauseSession(session_status: SESSION_STATUS): void

@@ -12,7 +12,7 @@ export interface AdmResponses {
     body?: Object | null
 }
 interface IUserAdm_usecases {
-    login(email: string, password: string): Promise<AdmResponses>
+    login(query: any, data: Partial<IUserAdm>): Promise<AdmResponses>
     logout(accessToken: string): Promise<AdmResponses>
 
     CreateAdm(params: object, data: IUserAdm): Promise<AdmResponses>
