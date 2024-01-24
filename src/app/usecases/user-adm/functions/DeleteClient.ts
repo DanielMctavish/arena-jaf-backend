@@ -3,18 +3,29 @@ import PrismaUserClientRepositorie from "../../../repositories/PrismaRepositorie
 
 export const deleteClient = (client_id: string): Promise<AdmResponses> => {
     const UserClientRepositorie = new PrismaUserClientRepositorie()
-    const currentClient = UserClientRepositorie.delete(client_id)
 
-    return new Promise((resolve, reject) => {
-        if (!client_id) {
-            return reject({ body: { msg: 'client_id nulo ou inválido' } })
-        }
-        if(!currentClient){
-            return reject({status_code: 400, msg: 'ao ao tentar deletar cliente', body: currentClient })
-        }
+    return new Promise(async (resolve, reject) => {
+        try {
 
-        const response: AdmResponses = { status_code: 200, msg: 'cliente deletado com sucesso', body: currentClient }
-        resolve(response);
+            if (!client_id) {
+                return reject({
+                    status_code: 403,
+                    msg: "client_id nulo ou inválido"
+                })
+            }
+            const currentClient = await UserClientRepositorie.delete(client_id)
+
+            const response: AdmResponses = { status_code: 200, msg: 'cliente deletado com sucesso', body: currentClient }
+            resolve(response);
+
+        } catch (error) {
+
+            reject({
+                status_code: 500,
+                msg: "Erro no servidor"
+            })
+
+        }
     })
 
 }

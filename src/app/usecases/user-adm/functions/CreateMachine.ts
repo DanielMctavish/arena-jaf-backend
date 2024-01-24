@@ -9,8 +9,12 @@ export const createMachine = async (data: IMachines): Promise<AdmResponses> => {
     const currentMachine = await MachineRepositorie.create(data)
 
     return new Promise((resolve, reject) => {
+
         if (!data) {
-            return reject({ body: { msg: 'nenhum valor retornado' } })
+            return reject({
+                status_code: 400,
+                msg: "Dados inválidos"
+            })
         }
 
         //validator(machineSchemma, data)

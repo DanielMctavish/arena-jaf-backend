@@ -4,18 +4,30 @@ import PrismaMachineRepositorie from "../../../repositories/PrismaRepositories/P
 export const deleteMachine = async (machine_id: string): Promise<AdmResponses> => {
 
     const MachineRepositorie = new PrismaMachineRepositorie()
-    const currentMachine = await MachineRepositorie.delete(machine_id)
 
-    return new Promise((resolve, reject) => {
-        if (!machine_id) {
-            return reject({ body: { msg: 'nenhum valor retornado' } })
-        }
-        if(!currentMachine){
-            return reject({status_code: 400, msg: 'erro ao tentar deletar máquina', body: currentMachine })
+    return new Promise(async (resolve, reject) => {
+        
+        try {
+
+            if (!machine_id) {
+                return reject({
+                    status_code: 403,
+                    msg: "machine_id nulo ou inválido"
+                })
+            }
+            const currentMachine = await MachineRepositorie.delete(machine_id)
+            const response: AdmResponses = { status_code: 200, msg: 'máquina deletada com sucesso', body: currentMachine }
+            resolve(response);
+
+        } catch (error) {
+            
+            reject({
+                status_code: 500,
+                msg: "Erro no servidor"
+            })
+
         }
 
-        const response: AdmResponses = { status_code: 200, msg: 'máquina deletada com sucesso', body: currentMachine }
-        resolve(response);
     })
 
 }

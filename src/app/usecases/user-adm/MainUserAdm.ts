@@ -3,7 +3,7 @@ import IMachines from "../../entities/IMachines";
 import IProducts from "../../entities/IProducts";
 import ISessions, { SESSION_STATUS } from "../../entities/ISessions";
 import IUserClient from "../../entities/IUserClient";
-import IUserAdm_usecases, { AdmResponses } from "../IUserAdm_usecases";
+import IUserAdm_usecases, { AdmResponses, params } from "../IUserAdm_usecases";
 
 import { addCreditToClient } from "./functions/AddCreditToClient";
 import { createArenaLocation } from "./functions/CreateArenaLocation";
@@ -25,32 +25,30 @@ import ITransaction from "../../entities/ITransaction";
 import IUserAdm from "../../entities/IUserAdm";
 import createAdm from "./functions/CreateAdm";
 
-export interface IParams_id {
-    id: string
-}
+
 class MainUserAdm implements IUserAdm_usecases {
 
-    CreateAdm(params: object, data: IUserAdm): Promise<AdmResponses> {
+    CreateAdm(data: IUserAdm): Promise<AdmResponses> {//revisado
         return createAdm(data)
     }
 
-    addCreditToClient(params_id: IParams_id, transaction: ITransaction): Promise<AdmResponses> {
-        return addCreditToClient(params_id, transaction)
+    addCreditToClient(data: ITransaction): Promise<AdmResponses> {//revisado
+        return addCreditToClient(data)
     }
 
-    createArenaLocation(data: IArenaLocal): Promise<AdmResponses> {
+    createArenaLocation(data: IArenaLocal): Promise<AdmResponses> {//revisado
         return createArenaLocation(data)
     }
 
-    createMachine(data: IMachines): Promise<AdmResponses> {
+    createMachine(data: IMachines): Promise<AdmResponses> {//revisado
         return createMachine(data)
     }
 
-    createNewClient(data: IUserClient): Promise<AdmResponses> {
+    createNewClient(data: IUserClient): Promise<AdmResponses> {//revisado
         return createNewClient(data)
     }
 
-    login(query: any, data: Partial<IUserAdm>): Promise<AdmResponses> {
+    login(params: any, data: Partial<IUserAdm>): Promise<AdmResponses> {//revisado
         return login(data)
     }
 
@@ -58,48 +56,48 @@ class MainUserAdm implements IUserAdm_usecases {
         return logout(accessToken)
     }
 
-    createNewSession(data: ISessions): Promise<AdmResponses> {
+    createNewSession(data: ISessions): Promise<AdmResponses> {//revisado
         return createNewSession(data)
     }
 
-    deleteArenaLocation(local_id: string): Promise<AdmResponses> {
-        return deleteArenaLocation(local_id)
+    deleteArenaLocation(params: params): Promise<AdmResponses> {//revisado
+        return deleteArenaLocation(params.local_id)
     }
 
-    listAllClients(id_adm: string): Promise<AdmResponses> {
-        return listAllClients(id_adm)
+    listAllClients(params: params): Promise<AdmResponses> {//revisado
+        return listAllClients(params.adm_id)
     }
 
-    deleteClient(client_id: string): Promise<AdmResponses> {
-        return deleteClient(client_id)
+    deleteClient(params: params): Promise<AdmResponses> {//revisado
+        return deleteClient(params.client_id)
     }
 
-    deleteMachine(machine_id: string): Promise<AdmResponses> {
-        return deleteMachine(machine_id)
+    deleteMachine(params: params): Promise<AdmResponses> {//revisado
+        return deleteMachine(params.machine_id)
     }
 
-    deleteNewProduct(product_id: string): Promise<AdmResponses> {
-        return deleteNewProduct(product_id)
+    deleteNewProduct(params: params): Promise<AdmResponses> {//revisado
+        return deleteNewProduct(params.product_id)
+    }
+
+    registerNewProduct(data: IProducts): Promise<AdmResponses> {//revisado
+        return registerNewProduct(data)
+    }
+
+    updateClient(data: IUserClient, params: params): Promise<AdmResponses> {//revisado
+        return updateClient(params.client_id, data)
+    }
+
+    updateNewProduct(data: IProducts, params: params): Promise<AdmResponses> {//revisado
+        return updateNewProduct(params.product_id, data)
+    }
+
+    updateArenaLocation(data: IArenaLocal, params: params): Promise<AdmResponses> {//revisado
+        return updateArenaLocation(params.local_id, data)
     }
 
     pauseSession(session_status: SESSION_STATUS): void {
 
-    }
-
-    registerNewProduct(data: IProducts): Promise<AdmResponses> {
-        return registerNewProduct(data)
-    }
-
-    updateClient(client_id: string, data: IUserClient): Promise<AdmResponses> {
-        return updateClient(client_id, data)
-    }
-
-    updateNewProduct(product_id: string, data: IProducts): Promise<AdmResponses> {
-        return updateNewProduct(product_id, data)
-    }
-
-    updateArenaLocation(local_id: string, data: IArenaLocal): Promise<AdmResponses> {
-        return updateArenaLocation(local_id, data)
     }
 
     resumeSession(session_status: SESSION_STATUS): void {

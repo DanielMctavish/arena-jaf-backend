@@ -10,15 +10,13 @@ router.get("/test", (req, res) => {
     res.status(200).send('ok! clientes operacional')
 })
 
-router.post("/create-client", (req, res) => { ApplyUseCase(res, MainClient.registerClient, req.query, req.body) })
-router.post("/add-credit", verifyToken, (req, res) => { ApplyUseCase(res, MainClient.AddCredit, req.query, req.body) })
-router.post("/create-session", verifyToken, (req, res) => { ApplyUseCase(res, MainClient.createNewSession, req.query, req.body) })
-router.get("/all-sessions", verifyToken, (req, res) => { ApplyUseCase(res, MainClient.listSessions, req.query, req.body) })
+router.post("/create-client", (req, res) => { ApplyUseCase(res, MainClient.registerClient, req.body, req.query) })
+router.post("/add-credit", verifyToken, (req, res) => { ApplyUseCase(res, MainClient.AddCredit, req.body, req.query) })
+router.post("/create-session", verifyToken, (req, res) => { ApplyUseCase(res, MainClient.createNewSession, req.body, req.query) })
+router.get("/all-sessions", verifyToken, (req, res) => { ApplyUseCase(res, MainClient.listSessions, req.body, req.query) })
 
-
-
-//router.post("/login", generatedToken, (req, res) => { ApplyUseCase(res, MainClient.login, req.query, req.body) })
-router.post("/logout", verifyToken)
+router.post("/login", (req, res) => { ApplyUseCase(res, MainClient.login, req.body, req.query) })
+//router.post("/logout", verifyToken)
 
 
 export default router;

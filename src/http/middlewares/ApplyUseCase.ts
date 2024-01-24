@@ -1,10 +1,10 @@
 import { Request, Response } from 'express'
 
 
-export const ApplyUseCase = (res: Response, usecase: Function, params?: object, body?: object) => {
+export const ApplyUseCase = (res: Response, usecase: Function, body?: object, params?: object) => {
 
     const handle = () => {
-        usecase(params, body)
+        usecase(body, params)
             .then((response: any) => {
 
                 res.status(response.status_code).json({

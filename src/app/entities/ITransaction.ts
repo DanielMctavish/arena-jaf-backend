@@ -1,14 +1,19 @@
 import IUserAdm from "./IUserAdm"
+import IUserClient from "./IUserClient"
 
 interface ITransaction {
     id: string
-    UserAdm?: IUserAdm
-    userAdmId?:string
     value: number
     transaction_type: TRANSACTION_TYPE
     product_description?: string | null
     method: METHOD_PAYMENT
     status: STATUS_PAYMENT
+    UserAdm?: IUserAdm | any
+    userAdmId?: string | any
+    Client?: IUserClient | any
+    userClientId?: string | any
+    created_at: Date
+    updated_at: Date
 }
 
 

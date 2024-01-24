@@ -10,7 +10,10 @@ export const createArenaLocation = async (data: IArenaLocal): Promise<AdmRespons
 
     return new Promise((resolve, reject) => {
         if (!data) {
-            return reject({ body: { msg: 'nenhum valor retornado' } })
+            return reject({
+                status_code: 400,
+                msg: "Dados inválidos"
+            })
         }
 
         validator(arenaLocalSchema, data)

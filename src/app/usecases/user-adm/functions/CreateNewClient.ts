@@ -6,19 +6,31 @@ import { userClientSchema } from "../../../../security/validations/schemmas-joi/
 
 export const createNewClient = async (data: IUserClient): Promise<AdmResponses> => {
     const UserClientRepositorie = new PrismaUserClientRepositorie()
-    const currentClient = UserClientRepositorie.create(data)
 
-    return new Promise((resolve, reject) => {
-        if (!data) {
-            return reject({ body: { msg: 'nenhum valor retornado' } })
+    return new Promise(async (resolve, reject) => {
+
+        try {
+            if (!data) {
+                return reject({
+                    status_code: 400,
+                    msg: "Dados inválidos"
+                })
+            }
+
+            validator(userClientSchema, data)
+            const currentClient = await UserClientRepositorie.create(data)
+
+            if (!currentClient) return reject({ status_code: 401, msg: 'falha ao tentar criar cliente', body: currentClient })
+
+            const response: AdmResponses = { status_code: 200, msg: 'cliente criado com sucesso', body: currentClient }
+            resolve(response);
+        } catch (error) {
+            reject({
+                status_code: 500,
+                msg: "Erro no servidor"
+            })
         }
-
-        validator(userClientSchema, data)
-
-        if (!currentClient) return reject({ status_code: 401, msg: 'falha ao tentar criar cliente', body: currentClient })
-
-        const response: AdmResponses = { status_code: 200, msg: 'cliente criado com sucesso', body: currentClient }
-        resolve(response);
+        
     })
 
 }

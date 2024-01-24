@@ -1,17 +1,12 @@
-import { AdmResponses } from "../../IUserAdm_usecases"
+import { AdmResponses, params } from "../../IUserAdm_usecases"
 import ITransaction from "../../../entities/ITransaction";
 import PrismaTransactionRepositorie from "../../../repositories/PrismaRepositories/PrismaTransactionRepositorie";
 import PrismaUserClientRepositorie from "../../../repositories/PrismaRepositories/PrismaUserClientRepositorie";
-
 import validator from "../../../../security/validations/Joi";
 import { transactionSchema } from "../../../../security/validations/schemmas-joi/TransactionSchemma";
-import { IParams_id } from "../MainUserAdm";
 
 
-export const addCreditToClient = async (params: any, data: ITransaction): Promise<AdmResponses> => {
-
-
-    return console.log('observando corpos da requisição ---> ', data);
+export const addCreditToClient = async (data: ITransaction): Promise<AdmResponses> => {
 
     return new Promise(async (resolve, reject) => {
 
@@ -32,16 +27,19 @@ export const addCreditToClient = async (params: any, data: ITransaction): Promis
             //console.log('observando a operação transaction --> ', currentTransaction);
 
 
-            const UserClientRepositorie = new PrismaUserClientRepositorie()
+            const prismaClient = new PrismaUserClientRepositorie()
 
             try {
 
-                const currentClient = await UserClientRepositorie.find(id)
+                const currentClient = await prismaClient.find(data.userClientId)
+                if(!currentClient){
+                    return reject({ status_code: 404, msg: 'Cliente não encontrado!' })
+                }
 
                 let currentValue = 0
-                currentClient !== null ? currentValue = currentClient.saldo : "";
+                currentValue = currentClient.saldo
+                const clientUpdated = await prismaClient.update(data.userClientId, { saldo: currentValue + currentTransaction.value })
 
-                const clientUpdated = await UserClientRepositorie.update(id, { saldo: currentValue + currentTransaction.value })
                 const response:
                     AdmResponses = {
                     status_code: 200,

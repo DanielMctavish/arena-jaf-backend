@@ -8,63 +8,79 @@ const prisma = new PrismaClient()
 class PrismaProductRepositorie implements IProductRepositorie {
     async create(data: IProducts): Promise<IProducts> {
 
-        const { disponiveis, proprietario_id, value, nome, arenaLocalId, sessionsId, url_img } = data
+        const { local_id, session_id, ...restData } = data
 
-        return await prisma.products.create({
+        const currentProduct = await prisma.products.create({
             data: {
-                disponiveis,
-                proprietario_id,
-                value,
-                url_img,
-                nome,
-                arenaLocalId,
-                sessionsId
+                ...restData,
+                local: {
+                    connect: {
+                        id: local_id
+                    }
+                },
+                Sessions: {
+                    connect: {
+                        id: session_id
+                    }
+                }
             }
         })
+
+        return currentProduct as IProducts;
     }
 
     async find(product_id: string): Promise<IProducts | null> {
-        return await prisma.products.findFirst({
+
+        const currentProduct = await prisma.products.findFirst({
             where: {
                 id: product_id
             }
         })
+
+        return currentProduct as IProducts;
     }
 
-    async findAllByProprietario(proprietario_id: string): Promise<IProducts[]> {
-        return await prisma.products.findMany({
+    async findAllByOwner(owner_id: string): Promise<IProducts[]> {
+        const products = await prisma.products.findMany({
             where: {
-                proprietario_id
+                owner_id
             }
-        })
+        });
+
+        // Mapear para o formato desejado
+        const mappedProducts = products.map(product => product)
+
+        return mappedProducts as IProducts[];
     }
+
 
     async update(product_id: string, data: Partial<IProducts>): Promise<IProducts> {
 
-        const { disponiveis, proprietario_id, value, nome, arenaLocalId, sessionsId, url_img } = data
+        const { available, name, url_img, value } = data
 
-        return await prisma.products.update({
+        const currentProduct = await prisma.products.update({
             where: {
                 id: product_id
             },
             data: {
-                disponiveis,
-                proprietario_id,
+                available,
                 value,
                 url_img,
-                nome,
-                arenaLocalId,
-                sessionsId
+                name
             }
         })
+
+        return currentProduct as IProducts;
     }
 
     async delete(product_id: string): Promise<IProducts> {
-        return await prisma.products.delete({
+        const currentProduct = await prisma.products.delete({
             where: {
                 id: product_id
             }
         })
+
+        return currentProduct as IProducts;
     }
 
 }

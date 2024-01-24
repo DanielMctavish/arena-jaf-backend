@@ -22,6 +22,7 @@ model UserAdm {
   Transactions Transactions[]
   created_at   DateTime       @default(now())
   updated_at   DateTime       @default(now()) @updatedAt
+  Sessions     Sessions[]
 }
 
 model UserColab {
@@ -68,35 +69,36 @@ model ArenaLocal {
 }
 
 model Sessions {
-  id              String         @id @default(cuid())
-  proprietario_id String
-  duration        Int
-  value           Float
-  user            UserClient     @relation(fields: [userClientId], references: [id])
-  userClientId    String
-  status          SESSION_STATUS
-  products        Products[]
-  location        ArenaLocal     @relation(fields: [arenaLocalId], references: [id])
-  arenaLocalId    String
-  Machine         Machines       @relation(fields: [machineId], references: [id])
-  machineId       String
-  created_at      DateTime       @default(now())
-  updated_at      DateTime       @default(now()) @updatedAt
+  id         String         @id @default(cuid())
+  value      Float
+  duration   Int
+  status     SESSION_STATUS
+  UserAdm    UserAdm        @relation(fields: [adm_id], references: [id])
+  adm_id     String
+  Client     UserClient     @relation(fields: [client_id], references: [id])
+  client_id  String
+  location   ArenaLocal     @relation(fields: [local_id], references: [id])
+  local_id   String
+  Machine    Machines       @relation(fields: [machine_id], references: [id])
+  machine_id String
+  products   Products[]
+  created_at DateTime       @default(now())
+  updated_at DateTime       @default(now()) @updatedAt
 }
 
 model Products {
-  id              String     @id @default(cuid())
-  nome            String
-  url_img         String
-  disponiveis     Int
-  value           Float
-  local           ArenaLocal @relation(fields: [arenaLocalId], references: [id])
-  Sessions        Sessions?  @relation(fields: [sessionsId], references: [id])
-  sessionsId      String?
-  arenaLocalId    String
-  proprietario_id String
-  created_at      DateTime   @default(now())
-  updated_at      DateTime   @default(now()) @updatedAt
+  id         String     @id @default(cuid())
+  owner_id   String
+  name       String
+  url_img    String
+  available  Int
+  value      Float
+  local      ArenaLocal @relation(fields: [local_id], references: [id])
+  local_id   String
+  Sessions   Sessions   @relation(fields: [session_id], references: [id])
+  session_id String
+  created_at DateTime   @default(now())
+  updated_at DateTime   @default(now()) @updatedAt
 }
 
 model Transactions {
@@ -115,18 +117,17 @@ model Transactions {
 }
 
 model Machines {
-  id                 String      @id @default(cuid())
-  nano_id            String
-  arenaLocalId       String
-  proprietario       UserAdm     @relation(fields: [userAdmId], references: [id])
-  userAdmId          String
-  status             String
-  local              ArenaLocal? @relation(fields: [arenaLocalId], references: [id])
-  proprietario_colab UserColab?  @relation(fields: [userColabId], references: [id])
-  userColabId        String?
-  sessoes            Sessions[]
-  created_at         DateTime    @default(now())
-  updated_at         DateTime    @default(now()) @updatedAt
+  id           String      @id @default(cuid())
+  nano_id      String
+  UserAdm      UserAdm     @relation(fields: [userAdmId], references: [id])
+  userAdmId    String
+  UserColab    UserColab?  @relation(fields: [userColabId], references: [id])
+  userColabId  String?
+  local        ArenaLocal? @relation(fields: [arenaLocalId], references: [id])
+  arenaLocalId String
+  sessions     Sessions[]
+  created_at   DateTime    @default(now())
+  updated_at   DateTime    @default(now()) @updatedAt
 }
 
 enum SESSION_STATUS {

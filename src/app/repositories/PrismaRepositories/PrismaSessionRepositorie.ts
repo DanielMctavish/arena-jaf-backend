@@ -8,61 +8,83 @@ class PrismaSessionRepositorie implements ISessionRepositorie {
 
     async create(data: ISessions): Promise<ISessions> {
 
-        const { arenaLocalId, duration, machineId, proprietario_id, userClientId, value, status } = data
+        const { local_id, adm_id, client_id, machine_id, ...restData } = data
 
-        return await prisma.sessions.create({
+        const currentSession = await prisma.sessions.create({
             data: {
-                arenaLocalId,
-                duration,
-                machineId,
-                proprietario_id,
-                userClientId,
-                value,
-                status
+                ...restData,
+                Client: {
+                    connect: {
+                        id: client_id
+                    }
+                },
+                UserAdm: {
+                    connect: {
+                        id: adm_id
+                    }
+                },
+                location: {
+                    connect: {
+                        id: local_id
+                    }
+                },
+                Machine: {
+                    connect: {
+                        id: machine_id
+                    }
+                }
             }
         })
+
+        return currentSession as ISessions;
     }
 
     async find(session_id: string): Promise<ISessions | null> {
 
-        return await prisma.sessions.findFirst({
+        const currentSession = await prisma.sessions.findFirst({
             where: {
                 id: session_id
             }
         })
 
+        return currentSession as ISessions;
     }
 
     async findAll(client_id: string): Promise<ISessions[]> {
-        return await prisma.sessions.findMany({
+
+        const currentSession = await prisma.sessions.findMany({
             where: {
-                userClientId: client_id
+                client_id: client_id
             }
         })
+
+        return currentSession as ISessions[];
     }
 
     async update(session_id: string, data: Partial<ISessions>): Promise<ISessions> {
 
-        const { arenaLocalId, duration, machineId, proprietario_id, userClientId, value, status } = data
+        const { duration, products, status, value } = data
 
-        return await prisma.sessions.update({
+        const currentSession = await prisma.sessions.update({
             where: { id: session_id },
             data: {
-                arenaLocalId,
                 duration,
-                machineId,
-                proprietario_id,
-                userClientId,
-                value,
-                status
+                products,
+                status,
+                value
             }
         })
+
+        return currentSession as ISessions;
     }
 
     async delete(session_id: string): Promise<ISessions> {
-        return await prisma.sessions.delete({
+
+        const currentSession = await prisma.sessions.delete({
             where: { id: session_id }
         })
+
+        return currentSession as ISessions;
     }
 }
 

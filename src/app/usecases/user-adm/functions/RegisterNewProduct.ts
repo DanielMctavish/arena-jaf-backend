@@ -7,19 +7,31 @@ import { productSchema } from "../../../../security/validations/schemmas-joi/Pro
 export const registerNewProduct = async (data: IProducts): Promise<AdmResponses> => {
 
     const ProductRepositorie = new PrismaProductRepositorie()
-    const currentProduct = await ProductRepositorie.create(data)
 
-    return new Promise((resolve, reject) => {
-        if (!data) {
-            return reject({ body: { msg: 'nenhum valor retornado' } })
+
+    return new Promise(async (resolve, reject) => {
+
+        try {
+            if (!data) {
+                return reject({
+                    status_code: 403,
+                    msg: "data nulo ou inválido"
+                })
+            }
+            const currentProduct = await ProductRepositorie.create(data)
+            const response: AdmResponses = {
+                status_code: 201,
+                msg: 'produto criado com sucesso',
+                body: currentProduct
+            }
+            resolve(response);
+        } catch (error) {
+            reject({
+                status_code: 500,
+                msg: "Erro no servidor"
+            })
         }
 
-        validator(productSchema, data)
-
-        if (!currentProduct) return reject({ status_code: 400, msg: 'erro ao tentar criar o produto', body: currentProduct })
-
-        const response: AdmResponses = { status_code: 200, msg: 'produto criado com sucesso', body: currentProduct }
-        resolve(response);
     })
 
 }

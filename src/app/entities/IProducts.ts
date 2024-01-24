@@ -3,15 +3,17 @@ import ISessions from "./ISessions"
 
 interface IProducts {
     id: string
-    nome: string
+    owner_id:string
+    name: string
     url_img: string
-    disponiveis: number
+    available: number
     value: number
-    local?: IArenaLocal | null
-    arenaLocalId: string
-    proprietario_id: string
-    Sessions?: ISessions | null
-    sessionsId?: string | null
+    local: IArenaLocal
+    local_id: string
+    Sessions: ISessions
+    session_id: string 
+    created_at: Date
+    updated_at: Date
 }
 
 export default IProducts

@@ -13,7 +13,7 @@ class PrismaUserClientRepositorie implements IUserClientRepositorie {
     }
 
     async find(client_id: string): Promise<IUserClient | null> {
-        return await prisma.userClient.findFirst({
+        return await prisma.userClient.findUnique({
             where: { id: client_id }
         })
     }
