@@ -46,6 +46,10 @@ interface IUserAdm_usecases {
     registerNewProduct(data: IProducts): Promise<AdmResponses>
     deleteNewProduct(data: any, params: params): Promise<AdmResponses>
     updateNewProduct(data: IProducts, params: params): Promise<AdmResponses>
+
+    // FIREBASE
+    uploadAdminProfile(): Promise<AdmResponses>
+    deleteAdminProfile(): Promise<AdmResponses>
 }
 
 export default IUserAdm_usecases
