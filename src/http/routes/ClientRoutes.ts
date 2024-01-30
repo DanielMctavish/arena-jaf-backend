@@ -10,12 +10,12 @@ router.get("/test", (req, res) => {
     res.status(200).send('ok! clientes operacional')
 })
 
-router.post("/create-client", (req, res) => { ApplyUseCase(res, MainClient.registerClient, req.body, req.query) })
-router.post("/add-credit", verifyToken, (req, res) => { ApplyUseCase(res, MainClient.AddCredit, req.body, req.query) })
-router.post("/create-session", verifyToken, (req, res) => { ApplyUseCase(res, MainClient.createNewSession, req.body, req.query) })
-router.get("/all-sessions", verifyToken, (req, res) => { ApplyUseCase(res, MainClient.listSessions, req.body, req.query) })
+router.post("/create-client", (req, res) => { ApplyUseCase(MainClient.registerClient) })
+router.post("/add-credit", verifyToken, (req, res) => { ApplyUseCase(MainClient.AddCredit) })
+router.post("/create-session", verifyToken, (req, res) => { ApplyUseCase(MainClient.createNewSession) })
+router.get("/all-sessions", verifyToken, (req, res) => { ApplyUseCase(MainClient.listSessions) })
 
-router.post("/login", (req, res) => { ApplyUseCase(res, MainClient.login, req.body, req.query) })
+router.post("/login", (req, res) => { ApplyUseCase(MainClient.login) })
 //router.post("/logout", verifyToken)
 
 

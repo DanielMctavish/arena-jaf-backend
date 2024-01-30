@@ -18,6 +18,10 @@ interface IUserClient_usecases {
     AddCredit(data: ITransaction, params: params): Promise<IClientResponses>
     createNewSession(data: ISessions): Promise<IClientResponses>
     listSessions(data: any, params: params): Promise<IClientResponses>
+
+    uploadClientProfile():Promise<IClientResponses>
+    deleteClientProfile():Promise<IClientResponses>
+    
 }
 
 export default IUserClient_usecases;

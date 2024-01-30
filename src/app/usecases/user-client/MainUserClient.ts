@@ -31,6 +31,8 @@ class MainUserClient implements IUserClient_usecases {
         return listAllSessions(params.client_id)
     }
 
+    
+
 }
 
 export default MainUserClient;

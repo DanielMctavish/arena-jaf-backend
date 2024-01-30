@@ -24,6 +24,11 @@ import { updateArenaLocation } from "./functions/UpdateArenaLocation";
 import ITransaction from "../../entities/ITransaction";
 import IUserAdm from "../../entities/IUserAdm";
 import createAdm from "./functions/CreateAdm";
+import firebaseUploadAdmProfile from "./firebase/FirebaseUploadAdmProfile";
+import { FilePhoto } from "../../../utils/Firebase/FirebaseOperations";
+import firebaseDeleteAdmProfile from "./firebase/FirebaseDeleteAdmProfile";
+import firebaseUploadProductCover from "./firebase/FirebaseUploadProductCover";
+import firebaseDeleteProductCover from "./firebase/FirebaseDeleteProductCover";
 
 
 class MainUserAdm implements IUserAdm_usecases {
@@ -102,6 +107,18 @@ class MainUserAdm implements IUserAdm_usecases {
 
     resumeSession(session_status: SESSION_STATUS): void {
 
+    }
+    uploadAdminProfile(data: any, params: params, File: FilePhoto): Promise<AdmResponses> {
+        return firebaseUploadAdmProfile(params.adm_id, File)
+    }
+    deleteAdminProfile(data: any, params: params): Promise<AdmResponses> {
+        return firebaseDeleteAdmProfile(params)
+    }
+    uploadProductCoverImg(data: any, params: params, File: FilePhoto): Promise<AdmResponses> {
+        return firebaseUploadProductCover(params.product_id, File)
+    }
+    deleteProductCoverImg(data: any, params: params): Promise<AdmResponses> {
+        return firebaseDeleteProductCover(params)
     }
 }
 

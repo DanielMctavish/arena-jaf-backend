@@ -1,3 +1,4 @@
+import { FilePhoto } from "../../utils/Firebase/FirebaseOperations"
 import IArenaLocal from "../entities/IArenaLocal"
 import IMachines from "../entities/IMachines"
 import IProducts from "../entities/IProducts"
@@ -48,8 +49,10 @@ interface IUserAdm_usecases {
     updateNewProduct(data: IProducts, params: params): Promise<AdmResponses>
 
     // FIREBASE
-    uploadAdminProfile(): Promise<AdmResponses>
-    deleteAdminProfile(): Promise<AdmResponses>
+    uploadAdminProfile(data: any, params: params, File: FilePhoto): Promise<AdmResponses>
+    deleteAdminProfile(data: any, params: params, File: FilePhoto): Promise<AdmResponses>
+    uploadProductCoverImg(data: any, params: params, File: FilePhoto): Promise<AdmResponses>
+    deleteProductCoverImg(data: any, params: params, File: FilePhoto): Promise<AdmResponses>
 }
 
 export default IUserAdm_usecases
