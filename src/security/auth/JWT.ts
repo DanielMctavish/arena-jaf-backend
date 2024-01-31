@@ -10,7 +10,7 @@ export const generatedToken = (type: string, user_id: string) => {
         user_id
     }, privateSecret,
         {
-            expiresIn: "1h",
+            expiresIn: "12h",
         })
 
     return token;

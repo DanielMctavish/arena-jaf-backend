@@ -1,10 +1,11 @@
+import IClientResponses from "../../../../http/res/IClientResponses"
 import { FilePhoto, uploadSingleImage } from "../../../../utils/Firebase/FirebaseOperations"
 import PrismaUserClientRepositorie from "../../../repositories/PrismaRepositories/PrismaUserClientRepositorie"
 import { AdmResponses } from "../../IUserAdm_usecases"
 const prismaClient = new PrismaUserClientRepositorie()
 
 
-const firebaseUploadClientProfile = (client_id: string, File: FilePhoto): Promise<AdmResponses> => {
+const firebaseUploadClientProfile = (client_id: string, File: FilePhoto): Promise<IClientResponses> => {
     //console.log('dentro da função de upload --> ', File);
 
     return new Promise(async (resolve, reject) => {
@@ -22,7 +23,7 @@ const firebaseUploadClientProfile = (client_id: string, File: FilePhoto): Promis
                 && File.mimetype !== 'image/jpeg') return reject({ status_code: 500, body: "o arquivo precisa ser uma foto" })
             const currentImage = await uploadSingleImage('Arena-client-profile', File)
             await prismaClient.update(client_id, { avatar_url: currentImage })
-            resolve({ status_code: 201, msg: "Foto de perfil enviado com sucesso", body: { currentImage } })
+            resolve({ status_code: 201, body: { msg: "Foto de perfil enviado com sucesso", body: { currentImage } } })
 
         } catch (error: any) {
             reject({ status_code: 500, body: error.message })

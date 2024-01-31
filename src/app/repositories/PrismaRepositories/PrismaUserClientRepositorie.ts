@@ -7,6 +7,7 @@ const prisma = new PrismaClient()
 class PrismaUserClientRepositorie implements IUserClientRepositorie {
 
     async create(data: IUserClient): Promise<IUserClient> {
+
         return await prisma.userClient.create({
             data
         })

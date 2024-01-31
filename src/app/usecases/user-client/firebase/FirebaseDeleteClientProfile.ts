@@ -15,7 +15,7 @@ const firebaseDeleteClientProfile = (params: any): Promise<IClientResponses> => 
             const currentImage = await deleteSingleImage(params.url)
             await prismaClient.update(params.client_id, { avatar_url: "" })
 
-            resolve({ status_code: 200, message: { msg: "client profile deleted", img: currentImage } })
+            resolve({ status_code: 200, body: { msg: "client profile deleted", img: currentImage } })
         } catch (error: any) {
             reject({ status_code: 500, body: error.message })
         }

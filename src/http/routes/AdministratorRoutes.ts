@@ -6,23 +6,23 @@ import MainUserAdm from '../../app/usecases/user-adm/MainUserAdm'
 
 const mainAdm = new MainUserAdm()
 
-router.post("/create-account", (req, res) => { ApplyUseCase(res, mainAdm.CreateAdm, req.query, req.body) })//testado
-router.post("/add-credit", verifyToken, (req, res) => { ApplyUseCase(res, mainAdm.addCreditToClient, req.query, req.body) })//
-router.post("/create-local", verifyToken, (req, res) => { ApplyUseCase(res, mainAdm.createArenaLocation, req.query, req.body) })
-router.post("/create-machine", verifyToken, (req, res) => { ApplyUseCase(res, mainAdm.createMachine, req.query, req.body) })
-router.post("/create-client", verifyToken, (req, res) => { ApplyUseCase(res, mainAdm.createNewClient, req.query, req.body) })
-router.post("/create-session", verifyToken, (req, res) => { ApplyUseCase(res, mainAdm.createNewSession, req.query, req.body) })
-router.delete("/delete-client", verifyToken, (req, res) => { ApplyUseCase(res, mainAdm.deleteClient, req.query, req.body) })
-router.delete("/delete-machine", verifyToken, (req, res) => { ApplyUseCase(res, mainAdm.deleteMachine, req.query, req.body) })
-router.delete("/delete-product", verifyToken, (req, res) => { ApplyUseCase(res, mainAdm.deleteNewProduct, req.query, req.body) })
-router.get("/all-clients", verifyToken, (req, res) => { ApplyUseCase(res, mainAdm.listAllClients, req.query, req.body) })
-router.post("/create-product", verifyToken, (req, res) => { ApplyUseCase(res, mainAdm.registerNewProduct, req.query, req.body) })// revisar prisma criação de produto
-router.patch("/update-local", verifyToken, (req, res) => { ApplyUseCase(res, mainAdm.updateArenaLocation, req.query, req.body) })
-router.patch("/update-client", verifyToken, (req, res) => { ApplyUseCase(res, mainAdm.updateClient, req.query, req.body) })
-router.patch("/update-product", verifyToken, (req, res) => { ApplyUseCase(res, mainAdm.updateNewProduct, req.query, req.body) })
+router.post("/create-account", (req, res) => { ApplyUseCase(mainAdm.CreateAdm) })//testado
+router.post("/add-credit", verifyToken, (req, res) => { ApplyUseCase(mainAdm.addCreditToClient) })//
+router.post("/create-local", verifyToken, (req, res) => { ApplyUseCase(mainAdm.createArenaLocation) })
+router.post("/create-machine", verifyToken, (req, res) => { ApplyUseCase(mainAdm.createMachine) })
+router.post("/create-client", verifyToken, (req, res) => { ApplyUseCase(mainAdm.createNewClient) })
+router.post("/create-session", verifyToken, (req, res) => { ApplyUseCase(mainAdm.createNewSession) })
+router.delete("/delete-client", verifyToken, (req, res) => { ApplyUseCase(mainAdm.deleteClient) })
+router.delete("/delete-machine", verifyToken, (req, res) => { ApplyUseCase(mainAdm.deleteMachine) })
+router.delete("/delete-product", verifyToken, (req, res) => { ApplyUseCase(mainAdm.deleteNewProduct) })
+router.get("/all-clients", verifyToken, (req, res) => { ApplyUseCase(mainAdm.listAllClients) })
+router.post("/create-product", verifyToken, (req, res) => { ApplyUseCase(mainAdm.registerNewProduct) })// revisar prisma criação de produto
+router.patch("/update-local", verifyToken, (req, res) => { ApplyUseCase(mainAdm.updateArenaLocation) })
+router.patch("/update-client", verifyToken, (req, res) => { ApplyUseCase(mainAdm.updateClient) })
+router.patch("/update-product", verifyToken, (req, res) => { ApplyUseCase(mainAdm.updateNewProduct) })
 
 //ACCESS........................................................
-router.post("/login", (req, res) => { ApplyUseCase(res, mainAdm.login, req.query, req.body) })//testado
+router.post("/login", (req, res) => { ApplyUseCase(mainAdm.login) })//testado
 router.post("/logout", verifyToken)
 
 export default router;

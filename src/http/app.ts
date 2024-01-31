@@ -11,13 +11,12 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(cors())
 
+// app.use('/', (req, res) => {
+//     res.send('arena JAF | Oficial route')
+// })
+
 app.use("/adm", administratorRoutes)
 app.use("/client", clientRoutes)
-
-app.use('/', (req, res) => {
-    res.send('arena JAF | Oficial route')
-})
-
 
 app.listen(process.env.PORT || 3033, () => {
     console.log('[ArenaJaf] Server running on PORT -> ', process.env.PORT)

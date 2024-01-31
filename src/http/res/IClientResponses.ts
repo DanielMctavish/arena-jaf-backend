@@ -1,6 +1,6 @@
 
 export default interface IClientResponses {
     status_code: number,
-    message: object,
+    body: object,
     access_token?: string
 }

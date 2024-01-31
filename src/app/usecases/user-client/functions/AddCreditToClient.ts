@@ -1,36 +1,54 @@
 import ITransaction from "../../../entities/ITransaction";
 import PrismaUserClientRepositorie from "../../../repositories/PrismaRepositories/PrismaUserClientRepositorie";
 import PrismaTransactionRepositorie from "../../../repositories/PrismaRepositories/PrismaTransactionRepositorie";
-import validator from "../../../../security/validations/Joi";
-import { transactionSchema } from "../../../../security/validations/schemmas-joi/TransactionSchemma";
 import IClientResponses from "../../../../http/res/IClientResponses";
 
-export const addCreditToClient = async (client_id: string, transaction: ITransaction): Promise<IClientResponses> => {
+const prismaClient = new PrismaUserClientRepositorie()
+const prismaTransaction = new PrismaTransactionRepositorie();
 
-    const Transaction = new PrismaTransactionRepositorie();
-    const currentTransaction = await Transaction.create(transaction)
-    const UserClientRepositorie = new PrismaUserClientRepositorie()
-    const currentClient = await UserClientRepositorie.update(client_id, { saldo: currentTransaction.value })
+export const addCreditToClient = async (client_id: string, data: ITransaction): Promise<IClientResponses> => {
 
+    return new Promise(async (resolve, reject) => {
 
-    return new Promise((resolve, reject) => {
+        try {
 
-        if (!transaction) {
-            return reject({ status_code: 404, msg: 'nenhuma transação identificada', body: currentTransaction })
+            if (!client_id) {
+                return reject({
+                    status_code: 400,
+                    body: {
+                        message: "client_id is required"
+                    }
+                })
+            }
+
+            if (!data) {
+                return reject({
+                    status_code: 400,
+                    body: {
+                        message: "data is required"
+                    }
+                })
+            }
+
+            const currentTransaction = await prismaTransaction.create(data)
+            const currentClient = await prismaClient.find(client_id)
+            if (!currentClient) return reject({ status_code: 404, body: { msg: 'not founded client' } })
+            const updateClient = await prismaClient.update(client_id, { saldo: currentClient.saldo + data.value })
+
+            if (!currentTransaction) {
+                return reject({ status_code: 404, msg: 'nenhuma transação identificada', body: currentTransaction })
+            }
+
+            if (!updateClient) {
+                return reject({ status_code: 404, msg: 'falha ao tentar atualizar saldo do cliente', body: currentTransaction })
+            }
+
+            const response: IClientResponses = { status_code: 200, body: { msg: 'crédito adicionado', body: currentTransaction } }
+            resolve(response);
+        } catch (error: any) {
+
+            return reject({ status_code: 500, body: { msg: error.message } })
+
         }
-
-        validator(transactionSchema, transaction)
-
-        if (!currentTransaction) {
-            return reject(({ status_code: 401, msg: 'falha ao realizar transação', body: currentTransaction }))
-        }
-
-
-        if (!currentClient) {
-            return reject({ status_code: 404, msg: 'falha ao tentar atualizar saldo do cliente', body: currentTransaction })
-        }
-
-        const response: IClientResponses = { status_code: 200, message: { msg: 'crédito adicionado', body: currentTransaction } }
-        resolve(response);
     });
 }

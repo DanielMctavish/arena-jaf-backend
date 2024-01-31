@@ -6,26 +6,23 @@ const prisma = new PrismaClient()
 
 class PrismaTransactionRepositorie implements ITransactionRepositorie {
     async create(data: ITransaction): Promise<ITransaction> {
+
         const { userAdmId, userClientId, ...restData } = data
 
-        const currentTransaction = await prisma.transactions.create({
+
+
+        return await prisma.transactions.create({
             data: {
                 ...restData,
-                Client:{
-                    connect:{
+                Client: {
+                    connect: {
                         id: userClientId
-                    }
-                },
-                UserAdm:{
-                    connect:{
-                        id: userAdmId
                     }
                 }
             }
         })
-
-        return currentTransaction;
     }
+
     async find(transaction_id: string): Promise<ITransaction | null> {
         return await prisma.transactions.findFirst({
             where: {

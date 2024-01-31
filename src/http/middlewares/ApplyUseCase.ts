@@ -3,7 +3,8 @@ import { Request, Response } from 'express'
 
 export const ApplyUseCase = (usecase: Function) => {
 
-    const applyResponse = async (req: Request | any, res: Response) => {
+
+    const handle = async (req: Request | any, res: Response) => {
 
         let data = {
             file: req.file,
@@ -13,11 +14,9 @@ export const ApplyUseCase = (usecase: Function) => {
             body: req.body
         }
 
-
         if (typeof usecase !== 'function') {
             return res.status(500).send({ message: 'Function Usecase Empty' });
         }
-
 
         await usecase(data.body, data?.query, data?.file, data?.files)
             .then((response: any) => {
@@ -32,5 +31,6 @@ export const ApplyUseCase = (usecase: Function) => {
 
     }
 
-    return applyResponse
+    return handle
+
 }

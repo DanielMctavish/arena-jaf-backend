@@ -10,13 +10,17 @@ router.get("/test", (req, res) => {
     res.status(200).send('ok! clientes operacional')
 })
 
-router.post("/create-client", (req, res) => { ApplyUseCase(MainClient.registerClient) })
-router.post("/add-credit", verifyToken, (req, res) => { ApplyUseCase(MainClient.AddCredit) })
-router.post("/create-session", verifyToken, (req, res) => { ApplyUseCase(MainClient.createNewSession) })
-router.get("/all-sessions", verifyToken, (req, res) => { ApplyUseCase(MainClient.listSessions) })
+router.post("/create-client", ApplyUseCase(MainClient.RegisterClient))//testado
+router.post("/add-credit", verifyToken, ApplyUseCase(MainClient.AddCredit))//testado
+router.post("/create-session", verifyToken, ApplyUseCase(MainClient.CreateNewSession))//
+router.get("/all-sessions", verifyToken, ApplyUseCase(MainClient.ListSessions))
 
-router.post("/login", (req, res) => { ApplyUseCase(MainClient.login) })
+router.post("/login-client", ApplyUseCase(MainClient.Login))//testado
 //router.post("/logout", verifyToken)
+
+//FIREBASE
+router.post("/upload-client-profile", verifyToken, ApplyUseCase(MainClient.UploadClientProfile))
+router.delete("/delete-client-profile", verifyToken, ApplyUseCase(MainClient.DeleteClientProfile))
 
 
 export default router;
