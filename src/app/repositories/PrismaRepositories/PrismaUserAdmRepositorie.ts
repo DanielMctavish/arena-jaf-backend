@@ -18,8 +18,6 @@ class PrismaUserAdmRepositorie implements IUserAdmRepositorie {
     }
 
     async findByEmail(email: string): Promise<IUserAdm | null> {
-
-        //console.log('dentro do prisma --> ', email);
         
         return await prisma.userAdm.findUnique({
             where: { email }

@@ -8,7 +8,7 @@ interface IMachines {
     nano_id: string
     UserAdm?: IUserAdm;
     userAdmId?: string | any;
-    UserColab?: IUserColab | null;
+    UserColab?: IUserColab | any;
     userColabId?: string | any;
     local?: IArenaLocal | null;
     arenaLocalId?: string | any;

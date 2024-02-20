@@ -12,8 +12,8 @@ router.get("/test", (req, res) => {
 
 router.post("/create-client", ApplyUseCase(MainClient.RegisterClient))//testado
 router.post("/add-credit", verifyToken, ApplyUseCase(MainClient.AddCredit))//testado
-router.post("/create-session", verifyToken, ApplyUseCase(MainClient.CreateNewSession))//
-router.get("/all-sessions", verifyToken, ApplyUseCase(MainClient.ListSessions))
+router.post("/create-session", verifyToken, ApplyUseCase(MainClient.CreateNewSession))//testado
+router.get("/all-sessions", verifyToken, ApplyUseCase(MainClient.ListSessions))//
 
 router.post("/login-client", ApplyUseCase(MainClient.Login))//testado
 //router.post("/logout", verifyToken)

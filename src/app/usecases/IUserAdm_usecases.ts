@@ -15,6 +15,7 @@ export interface AdmResponses {
 
 export interface params {
     adm_id: string
+    email: string
     machine_id: string
     client_id: string
     product_id: string
@@ -22,13 +23,15 @@ export interface params {
 }
 
 interface IUserAdm_usecases {
-    login(query: any, data: Partial<IUserAdm>): Promise<AdmResponses>
+    login(data: Partial<IUserAdm>): Promise<AdmResponses>
     logout(accessToken: string): Promise<AdmResponses>
 
     CreateAdm(data: IUserAdm): Promise<AdmResponses>
+    GetAdminInfo(data: any, params: params): Promise<AdmResponses>
+    GetAdminInfoByEmail(data: any, params: params): Promise<AdmResponses>
 
     createMachine(data: IMachines): Promise<AdmResponses>
-    deleteMachine(params: params): Promise<AdmResponses>
+    deleteMachine(data: any, params: params): Promise<AdmResponses>
 
     createNewSession(data: ISessions): Promise<AdmResponses>
     pauseSession(session_status: SESSION_STATUS): void
@@ -38,11 +41,12 @@ interface IUserAdm_usecases {
     updateClient(data: IUserClient, params: params): Promise<AdmResponses>
     deleteClient(data: any, params: params): Promise<AdmResponses>
     listAllClients(data: any, params: params): Promise<AdmResponses>
+    listAllMachines(data: any, params: params): Promise<AdmResponses>
     addCreditToClient(data: ITransaction): Promise<AdmResponses>
 
     createArenaLocation(data: IArenaLocal): Promise<AdmResponses>
     updateArenaLocation(data: IArenaLocal, params: params): Promise<AdmResponses>
-    deleteArenaLocation(params: params): Promise<AdmResponses>
+    deleteArenaLocation(data: any, params: params): Promise<AdmResponses>
 
     registerNewProduct(data: IProducts): Promise<AdmResponses>
     deleteNewProduct(data: any, params: params): Promise<AdmResponses>

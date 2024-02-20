@@ -29,12 +29,23 @@ import { FilePhoto } from "../../../utils/Firebase/FirebaseOperations";
 import firebaseDeleteAdmProfile from "./firebase/FirebaseDeleteAdmProfile";
 import firebaseUploadProductCover from "./firebase/FirebaseUploadProductCover";
 import firebaseDeleteProductCover from "./firebase/FirebaseDeleteProductCover";
+import getAdminInfo from "./functions/GetAdminInfo";
+import getAdminInfoByEmail from "./functions/GetAdminInfoByEmail";
+import listAllMachines from "./functions/ListAllMachines";
 
 
 class MainUserAdm implements IUserAdm_usecases {
 
     CreateAdm(data: IUserAdm): Promise<AdmResponses> {//revisado
         return createAdm(data)
+    }
+
+    GetAdminInfo(data: any, params: params): Promise<AdmResponses> {
+        return getAdminInfo(params.adm_id)
+    }
+
+    GetAdminInfoByEmail(data: any, params: params): Promise<AdmResponses> {
+        return getAdminInfoByEmail(params.email)
     }
 
     addCreditToClient(data: ITransaction): Promise<AdmResponses> {//revisado
@@ -53,7 +64,7 @@ class MainUserAdm implements IUserAdm_usecases {
         return createNewClient(data)
     }
 
-    login(params: any, data: Partial<IUserAdm>): Promise<AdmResponses> {//revisado
+    login(data: Partial<IUserAdm>): Promise<AdmResponses> {//revisado
         return login(data)
     }
 
@@ -69,8 +80,12 @@ class MainUserAdm implements IUserAdm_usecases {
         return deleteArenaLocation(params.local_id)
     }
 
-    listAllClients(params: params): Promise<AdmResponses> {//revisado
+    listAllClients(data: any, params: params): Promise<AdmResponses> {//revisado
         return listAllClients(params.adm_id)
+    }
+
+    listAllMachines(data: any, params: params): Promise<AdmResponses> {
+        return listAllMachines(params.adm_id)
     }
 
     deleteClient(params: params): Promise<AdmResponses> {//revisado

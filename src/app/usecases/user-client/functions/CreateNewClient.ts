@@ -17,18 +17,20 @@ export const createNewClient = async (data: IUserClient): Promise<IClientRespons
         validator(userClientSchema, data)
 
         try {
+            const currentClient = await ClientRepositorie.findByEmail(data.email)
+            if (currentClient) return reject({status_code: 401, body: { msg:'client já existe' } })
 
             //bcrypt hash
             const salt = await bcrypt.genSalt(10)
             const hash = await bcrypt.hash(data.senha, salt)
 
-            const currentClient = await ClientRepositorie.create({ ...data, senha: hash })
+            const createdClient = await ClientRepositorie.create({ ...data, senha: hash })
 
-            const response: IClientResponses = { status_code: 200, body: { msg: 'Cliente criado com sucesso', body: currentClient } }
+            const response: IClientResponses = { status_code: 201, body: { msg: 'Cliente criado com sucesso', body: createdClient } }
 
             resolve(response)
         } catch (error: any) {
-            reject(error.message)
+            reject({ status_code: 500, body: { msg: error.message } })
         }
 
     })

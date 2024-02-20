@@ -8,13 +8,16 @@ const prismaAdm = new PrismaUserAdmRepositorie()
 
 export const login = async (data: Partial<IUserAdm>): Promise<AdmResponses> => {
 
+    //console.log('informações data --> ', data);
 
 
     return new Promise(async (resolve, reject) => {
         if (!data.email) {
             return reject({
-                status_code: 400,
-                msg: 'Email não informado'
+                status_code: 403,
+                body: {
+                    msg: 'Email não informado'
+                }
             })
         }
 
@@ -23,19 +26,23 @@ export const login = async (data: Partial<IUserAdm>): Promise<AdmResponses> => {
 
             if (!user) {
                 return reject({
-                    status_code: 400,
-                    msg: 'Usuário não encontrado'
+                    status_code: 404,
+                    body: {
+                        msg: 'Usuário não encontrado'
+                    }
                 })
             }
 
             if (!data.senha) {
                 return reject({
                     status_code: 403,
-                    msg: 'Senha não informada'
+                    body: {
+                        msg: 'Senha não informada'
+                    }
                 })
             }
 
-            console.log('observando senhas --> ', data.senha, user.senha);
+            //console.log('observando senhas --> ', data.senha, user.senha);
 
             const passwordCheck = await verifyPassword(data.senha, user.senha)
             if (!passwordCheck) {
@@ -50,7 +57,7 @@ export const login = async (data: Partial<IUserAdm>): Promise<AdmResponses> => {
                 msg: 'Login realizado com sucesso',
                 body: {
                     token: generatedToken('user-login-adm', user.id),
-                    name:user.nome,
+                    name: user.nome,
                     email: user.email
                 }
             })

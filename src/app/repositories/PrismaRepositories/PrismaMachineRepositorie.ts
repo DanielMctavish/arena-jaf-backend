@@ -8,6 +8,7 @@ class PrismaMachineRepositorie implements IMachineRepositorie {
     async create(data: IMachines): Promise<IMachines> {
         const { userAdmId, userColabId, arenaLocalId, sessions, ...restData } = data;
 
+
         const currentMachine = await prisma.machines.create({
             data: {
                 ...restData,
@@ -16,18 +17,10 @@ class PrismaMachineRepositorie implements IMachineRepositorie {
                         id: userAdmId
                     }
                 },
-                UserColab: {
-                    connect: {
-                        id: userColabId
-                    }
-                },
                 local: {
                     connect: {
                         id: arenaLocalId
                     }
-                },
-                sessions: {
-                    create: sessions.map(session => session)
                 }
             }
         });
@@ -39,6 +32,17 @@ class PrismaMachineRepositorie implements IMachineRepositorie {
     async find(machine_id: string): Promise<IMachines | null> {
         const currentMachine = await prisma.machines.findFirst({ where: { id: machine_id } });
         return currentMachine as IMachines;
+    }
+
+    async list(adm_id: string): Promise<IMachines[]> {
+
+        const currentMachine = await prisma.machines.findMany({
+            where: {
+                userAdmId: adm_id
+            }
+        });
+
+        return currentMachine as IMachines[];
     }
 
     async update(machine_id: string, data: Partial<IMachines>): Promise<IMachines> {

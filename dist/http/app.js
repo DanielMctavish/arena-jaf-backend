@@ -11,7 +11,12 @@ const ClientRoutes_1 = __importDefault(require("./routes/ClientRoutes"));
 const app = (0, express_1.default)();
 app.use(express_1.default.urlencoded({ extended: false }));
 app.use(express_1.default.json());
-app.use((0, cors_1.default)());
+app.use((0, cors_1.default)({
+    origin: 'http://localhost:3002',
+    credentials: true,
+    optionsSuccessStatus: 200,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE'
+}));
 // app.use('/', (req, res) => {
 //     res.send('arena JAF | Oficial route')
 // })

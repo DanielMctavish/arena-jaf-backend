@@ -2,60 +2,68 @@ import { AdmResponses, params } from "../../IUserAdm_usecases"
 import ITransaction from "../../../entities/ITransaction";
 import PrismaTransactionRepositorie from "../../../repositories/PrismaRepositories/PrismaTransactionRepositorie";
 import PrismaUserClientRepositorie from "../../../repositories/PrismaRepositories/PrismaUserClientRepositorie";
-import validator from "../../../../security/validations/Joi";
-import { transactionSchema } from "../../../../security/validations/schemmas-joi/TransactionSchemma";
+import PrismaUserAdmRepositorie from "../../../repositories/PrismaRepositories/PrismaUserAdmRepositorie";
 
+const prismaTransaction = new PrismaTransactionRepositorie();
+const prismaClient = new PrismaUserClientRepositorie()
+const prismaAdm = new PrismaUserAdmRepositorie()
 
 export const addCreditToClient = async (data: ITransaction): Promise<AdmResponses> => {
 
     return new Promise(async (resolve, reject) => {
 
-        const validationResponse = await validator(transactionSchema, data)
-
-        if (!validationResponse.authenticator && validationResponse.msg !== '"token" is not allowed') {
-            console.log('validation alert!', validationResponse);
-
-            const { status_code, msg } = validationResponse
-            return reject({ status_code, body: { msg } })
-        }
-
-
         try {
-            const Transaction = new PrismaTransactionRepositorie();
-            const currentTransaction = await Transaction.create(data)
+            const currentClient = await prismaClient.find(data.userClientId)
+            const currentAdm = await prismaAdm.find(data.userAdmId)
 
-            //console.log('observando a operação transaction --> ', currentTransaction);
-
-
-            const prismaClient = new PrismaUserClientRepositorie()
-
-            try {
-
-                const currentClient = await prismaClient.find(data.userClientId)
-                if(!currentClient){
-                    return reject({ status_code: 404, msg: 'Cliente não encontrado!' })
-                }
-
-                let currentValue = 0
-                currentValue = currentClient.saldo
-                const clientUpdated = await prismaClient.update(data.userClientId, { saldo: currentValue + currentTransaction.value })
-
-                const response:
-                    AdmResponses = {
-                    status_code: 200,
-                    msg: 'crédito adicionado',
-                    body: { transação: currentTransaction, cliente: clientUpdated }
-                }
-                resolve(response);
-
-            } catch (error: any) {
-                await Transaction.delete(currentTransaction.id)
-                return reject({ status_code: 403, body: { msg: 'cliente possivelmente inexistente, transação apagada...' } })
+            if (!currentClient || !currentAdm) {
+                return reject({
+                    status_code: 400,
+                    body: {
+                        msg: "Cliente ou Administrador não encontrado"
+                    }
+                })
             }
 
+            if (data.value > currentClient.saldo) {
+                return reject({
+                    status_code: 400,
+                    body: {
+                        msg: "Saldo insuficiente"
+                    }
+                })
+            }
+
+            const currentTransaction = await prismaTransaction.create(data)
+            const adminUpdated = await prismaAdm.update(data.userAdmId, { saldo: currentAdm.saldo + currentTransaction.value })
+            const clientUpdated = await prismaClient.update(data.userClientId, { saldo: currentClient.saldo - currentTransaction.value })
+
+            if (!adminUpdated) {
+                return reject({
+                    status_code: 400,
+                    body: {
+                        msg: "Não foi possível atualizar o saldo do administrador"
+                    }
+                })
+            }
+
+            if (!clientUpdated) {
+                return reject({
+                    status_code: 400,
+                    body: {
+                        msg: "Não foi possível atualizar o saldo do cliente"
+                    }
+                })
+            }
+
+            return resolve({
+                status_code: 200,
+                body: currentTransaction,
+                msg: "Saldo atualizado com sucesso"
+            })
 
         } catch (error: any) {
-            return reject({ status_code: 401, msg: 'falha ao realizar transação', body: error.message })
+            return reject({ status_code: 500, msg: 'falha ao realizar transação', body: error.message })
         }
 
     });
