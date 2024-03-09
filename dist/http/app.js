@@ -17,9 +17,9 @@ app.use((0, cors_1.default)({
     optionsSuccessStatus: 200,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE'
 }));
-// app.use('/', (req, res) => {
-//     res.send('arena JAF | Oficial route')
-// })
+app.get('/check', (req, res) => {
+    res.send('arena JAF | Oficial route');
+});
 app.use("/adm", AdministratorRoutes_1.default);
 app.use("/client", ClientRoutes_1.default);
 app.listen(process.env.PORT || 3033, () => {

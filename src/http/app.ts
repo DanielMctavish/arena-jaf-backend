@@ -16,9 +16,9 @@ app.use(cors({
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE'
 }))
 
-// app.use('/', (req, res) => {
-//     res.send('arena JAF | Oficial route')
-// })
+app.get('/check', (req, res) => {
+    res.send('arena JAF | Oficial route')
+})
 
 app.use("/adm", administratorRoutes)
 app.use("/client", clientRoutes)
