@@ -8,25 +8,19 @@ const prisma = new PrismaClient()
 class PrismaProductRepositorie implements IProductRepositorie {
     async create(data: IProducts): Promise<IProducts> {
 
-        const { local_id, session_id, ...restData } = data
-
+        const { owner_id, available, name, url_img, value } = data
+        
         const currentProduct = await prisma.products.create({
             data: {
-                ...restData,
-                local: {
-                    connect: {
-                        id: local_id
-                    }
-                },
-                Sessions: {
-                    connect: {
-                        id: session_id
-                    }
-                }
+                owner_id,
+                available,
+                name,
+                url_img,
+                value
             }
         })
 
-        return currentProduct as IProducts;
+        return currentProduct ;
     }
 
     async find(product_id: string): Promise<IProducts | null> {

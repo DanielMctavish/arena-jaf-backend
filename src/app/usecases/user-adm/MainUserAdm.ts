@@ -130,7 +130,7 @@ class MainUserAdm implements IUserAdm_usecases {
         return firebaseDeleteAdmProfile(params)
     }
     uploadProductCoverImg(data: any, params: params, File: FilePhoto): Promise<AdmResponses> {
-        return firebaseUploadProductCover(params.product_id, File)
+        return firebaseUploadProductCover(File)
     }
     deleteProductCoverImg(data: any, params: params): Promise<AdmResponses> {
         return firebaseDeleteProductCover(params)

@@ -3,15 +3,15 @@ import ISessions from "./ISessions"
 
 interface IProducts {
     id: string
-    owner_id:string
+    owner_id: string
     name: string
     url_img: string
     available: number
     value: number
-    local: IArenaLocal
-    local_id: string
-    Sessions: ISessions
-    session_id: string 
+    local?: IArenaLocal | any
+    local_id?: string | any
+    Sessions?: ISessions | any
+    session_id?: string | any
     created_at: Date
     updated_at: Date
 }

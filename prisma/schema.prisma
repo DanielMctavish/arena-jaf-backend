@@ -87,18 +87,18 @@ model Sessions {
 }
 
 model Products {
-  id         String     @id @default(cuid())
+  id         String      @id @default(cuid())
   owner_id   String
   name       String
   url_img    String
   available  Int
   value      Float
-  local      ArenaLocal @relation(fields: [local_id], references: [id])
-  local_id   String
-  Sessions   Sessions   @relation(fields: [session_id], references: [id])
-  session_id String
-  created_at DateTime   @default(now())
-  updated_at DateTime   @default(now()) @updatedAt
+  local      ArenaLocal? @relation(fields: [local_id], references: [id])
+  local_id   String?
+  Sessions   Sessions?   @relation(fields: [session_id], references: [id])
+  session_id String?
+  created_at DateTime    @default(now())
+  updated_at DateTime    @default(now()) @updatedAt
 }
 
 model Transactions {
