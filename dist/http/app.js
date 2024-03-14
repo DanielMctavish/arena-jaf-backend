@@ -8,6 +8,7 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const AdministratorRoutes_1 = __importDefault(require("./routes/AdministratorRoutes"));
 const ClientRoutes_1 = __importDefault(require("./routes/ClientRoutes"));
+const ProductRoutes_1 = __importDefault(require("./routes/ProductRoutes"));
 const app = (0, express_1.default)();
 app.use(express_1.default.urlencoded({ extended: false }));
 app.use(express_1.default.json());
@@ -22,6 +23,7 @@ app.get('/check', (req, res) => {
 });
 app.use("/adm", AdministratorRoutes_1.default);
 app.use("/client", ClientRoutes_1.default);
+app.use("/product", ProductRoutes_1.default);
 app.listen(process.env.PORT || 3033, () => {
     console.log('[ArenaJaf] Server running on PORT -> ', process.env.PORT);
 });

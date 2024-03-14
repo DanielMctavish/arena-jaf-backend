@@ -3,6 +3,7 @@ import express from 'express'
 import cors from 'cors'
 import administratorRoutes from "./routes/AdministratorRoutes"
 import clientRoutes from "./routes/ClientRoutes"
+import productRoutes from "./routes/ProductRoutes"
 
 
 const app = express()
@@ -22,6 +23,7 @@ app.get('/check', (req, res) => {
 
 app.use("/adm", administratorRoutes)
 app.use("/client", clientRoutes)
+app.use("/product", productRoutes)
 
 app.listen(process.env.PORT || 3033, () => {
     console.log('[ArenaJaf] Server running on PORT -> ', process.env.PORT)

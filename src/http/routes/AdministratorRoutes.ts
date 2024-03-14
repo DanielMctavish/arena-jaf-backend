@@ -19,7 +19,7 @@ router.delete("/delete-machine", verifyToken, ApplyUseCase(mainAdm.deleteMachine
 router.delete("/delete-product", verifyToken, ApplyUseCase(mainAdm.deleteNewProduct))//
 router.get("/all-clients", verifyToken, ApplyUseCase(mainAdm.listAllClients))//
 router.get("/all-machines", verifyToken, ApplyUseCase(mainAdm.listAllMachines))//
-router.post("/create-product", verifyToken, ApplyUseCase(mainAdm.registerNewProduct))// 
+
 router.patch("/update-local", verifyToken, ApplyUseCase(mainAdm.updateArenaLocation))//
 router.patch("/update-client", verifyToken, ApplyUseCase(mainAdm.updateClient))//
 router.patch("/update-product", verifyToken, ApplyUseCase(mainAdm.updateNewProduct))//
@@ -33,7 +33,6 @@ router.post("/logout", verifyToken)
 //FIREBASE......................................................
 router.post("/upload-admin-profile", upload.single('arena-profile'), ApplyUseCase(mainAdm.uploadAdminProfile))
 router.post("/delete-admin-profile", ApplyUseCase(mainAdm.deleteAdminProfile))
-router.post("/upload-product-cover-img", upload.single('product-arena-cover'), ApplyUseCase(mainAdm.uploadProductCoverImg))
-router.post("/delete-product-cover-img", ApplyUseCase(mainAdm.deleteProductCoverImg))
+
 
 export default router;

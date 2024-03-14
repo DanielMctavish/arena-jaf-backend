@@ -16,8 +16,8 @@ import { deleteArenaLocation } from "./functions/DeleteArenaLocation";
 import { listAllClients } from "./functions/ListAllClients";
 import { deleteClient } from "./functions/DeleteClient";
 import { deleteMachine } from "./functions/DeleteMachine";
-import { deleteNewProduct } from "./functions/DeleteNewProduct";
-import { registerNewProduct } from "./functions/RegisterNewProduct";
+import { deleteNewProduct } from "../PRODUCTS/functions/DeleteNewProduct";
+import { registerNewProduct } from "../PRODUCTS/functions/RegisterNewProduct";
 import { updateClient } from "./functions/UpdateClient";
 import { updateNewProduct } from "./functions/UpdateNewProduct";
 import { updateArenaLocation } from "./functions/UpdateArenaLocation";
@@ -27,11 +27,12 @@ import createAdm from "./functions/CreateAdm";
 import firebaseUploadAdmProfile from "./firebase/FirebaseUploadAdmProfile";
 import { FilePhoto } from "../../../utils/Firebase/FirebaseOperations";
 import firebaseDeleteAdmProfile from "./firebase/FirebaseDeleteAdmProfile";
-import firebaseUploadProductCover from "./firebase/FirebaseUploadProductCover";
-import firebaseDeleteProductCover from "./firebase/FirebaseDeleteProductCover";
+import firebaseUploadProductCover from "../PRODUCTS/firebase/FirebaseUploadProductCover";
+import firebaseDeleteProductCover from "../PRODUCTS/firebase/FirebaseDeleteProductCover";
 import getAdminInfo from "./functions/GetAdminInfo";
 import getAdminInfoByEmail from "./functions/GetAdminInfoByEmail";
 import listAllMachines from "./functions/ListAllMachines";
+import { listProductsByOwner } from "../PRODUCTS/functions/ListProductsByOwner";
 
 
 class MainUserAdm implements IUserAdm_usecases {
@@ -100,6 +101,7 @@ class MainUserAdm implements IUserAdm_usecases {
         return deleteNewProduct(params.product_id)
     }
 
+    //PRODUCTS
     registerNewProduct(data: IProducts): Promise<AdmResponses> {//revisado
         return registerNewProduct(data)
     }
@@ -110,6 +112,10 @@ class MainUserAdm implements IUserAdm_usecases {
 
     updateNewProduct(data: IProducts, params: params): Promise<AdmResponses> {//revisado
         return updateNewProduct(params.product_id, data)
+    }
+
+    listProducts(data: any, params: params): Promise<AdmResponses> {
+        return listProductsByOwner(params.owner_id)
     }
 
     updateArenaLocation(data: IArenaLocal, params: params): Promise<AdmResponses> {//revisado

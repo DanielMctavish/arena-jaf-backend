@@ -117,17 +117,18 @@ model Transactions {
 }
 
 model Machines {
-  id           String      @id @default(cuid())
+  id           String         @id @default(cuid())
   nano_id      String
-  UserAdm      UserAdm     @relation(fields: [userAdmId], references: [id])
+  status       MACHINE_STATUS
+  UserAdm      UserAdm        @relation(fields: [userAdmId], references: [id])
   userAdmId    String
-  UserColab    UserColab?  @relation(fields: [userColabId], references: [id])
+  UserColab    UserColab?     @relation(fields: [userColabId], references: [id])
   userColabId  String?
-  local        ArenaLocal? @relation(fields: [arenaLocalId], references: [id])
+  local        ArenaLocal?    @relation(fields: [arenaLocalId], references: [id])
   arenaLocalId String
   sessions     Sessions[]
-  created_at   DateTime    @default(now())
-  updated_at   DateTime    @default(now()) @updatedAt
+  created_at   DateTime       @default(now())
+  updated_at   DateTime       @default(now()) @updatedAt
 }
 
 enum SESSION_STATUS {
@@ -150,4 +151,9 @@ enum STATUS_PAYMENT {
   APPROVED
   PENDENT
   CANCEL
+}
+
+enum MACHINE_STATUS {
+  DESCONECTED
+  CONECTED
 }

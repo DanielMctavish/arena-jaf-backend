@@ -20,6 +20,7 @@ export interface params {
     client_id: string
     product_id: string
     local_id: string
+    owner_id:string
 }
 
 interface IUserAdm_usecases {
@@ -48,15 +49,9 @@ interface IUserAdm_usecases {
     updateArenaLocation(data: IArenaLocal, params: params): Promise<AdmResponses>
     deleteArenaLocation(data: any, params: params): Promise<AdmResponses>
 
-    registerNewProduct(data: IProducts): Promise<AdmResponses>
-    deleteNewProduct(data: any, params: params): Promise<AdmResponses>
-    updateNewProduct(data: IProducts, params: params): Promise<AdmResponses>
-
     // FIREBASE
     uploadAdminProfile(data: any, params: params, File: FilePhoto): Promise<AdmResponses>
     deleteAdminProfile(data: any, params: params, File: FilePhoto): Promise<AdmResponses>
-    uploadProductCoverImg(data: any, params: params, File: FilePhoto): Promise<AdmResponses>
-    deleteProductCoverImg(data: any, params: params, File: FilePhoto): Promise<AdmResponses>
 }
 
 export default IUserAdm_usecases
