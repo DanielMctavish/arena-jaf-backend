@@ -12,11 +12,23 @@ import IClientResponses from "../../../http/res/IClientResponses";
 import { FilePhoto } from "../../../utils/Firebase/FirebaseOperations";
 import firebaseUploadClientProfile from "./firebase/FirebaseUploadClientProfile";
 import firebaseDeleteClientProfile from "./firebase/FirebaseDeleteClientProfile";
+import { findClient } from "./functions/FindClient";
+import { listClient } from "./functions/ListClient";
+import { updateClient } from "./functions/UpdateClient";
 
 class MainUserClient implements IUserClient_usecases {
 
     RegisterClient(data: IUserClient): Promise<IClientResponses> {//
         return createNewClient(data)
+    }
+    FindClient(data: any, params: params): Promise<IClientResponses> {
+        return findClient(params.client_id)
+    }
+    ListClient(data: any, params: params): Promise<IClientResponses> {
+        return listClient(params.administrator_id)
+    }
+    UpdateClient(data: Partial<IUserClient>, params: params): Promise<IClientResponses> {
+        return updateClient(data, params.client_id)
     }
     Login(data: IUserClient): Promise<IClientResponses> {//
         return loginClient(data)
@@ -37,10 +49,10 @@ class MainUserClient implements IUserClient_usecases {
     //FIREBASE
 
     UploadClientProfile(data: any, params: params, File: FilePhoto): Promise<IClientResponses> {
-        return firebaseUploadClientProfile(params.client_id, File)
+        return firebaseUploadClientProfile(File)
     }
     DeleteClientProfile(data: any, params: params, File: FilePhoto): Promise<IClientResponses> {
-        return firebaseDeleteClientProfile(params)
+        return firebaseDeleteClientProfile(params.url_image)
     }
 
 }

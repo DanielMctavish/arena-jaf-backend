@@ -23,7 +23,6 @@ export const ApplyUseCase = (usecase: Function) => {
                 // console.log('resposta do applyusecase --> ', response);
                 return res.status(response.status_code).send(response.body)
             }).catch((err: any) => {
-
                 // console.log('erro do applyusecase --> ', err);
                 return res.status(err.status_code).send(err.body)
 

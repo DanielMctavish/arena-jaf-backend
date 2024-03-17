@@ -21,6 +21,7 @@ export interface params {
     product_id: string
     local_id: string
     owner_id:string
+    url_image:string
 }
 
 interface IUserAdm_usecases {

@@ -20,9 +20,10 @@ model UserAdm {
   Machines     Machines[]
   ArenaLocal   ArenaLocal[]
   Transactions Transactions[]
+  Sessions     Sessions[]
+  UserClient   UserClient[]
   created_at   DateTime       @default(now())
   updated_at   DateTime       @default(now()) @updatedAt
-  Sessions     Sessions[]
 }
 
 model UserColab {
@@ -39,18 +40,19 @@ model UserColab {
 }
 
 model UserClient {
-  id              String         @id @default(cuid())
-  email           String
-  proprietario_id String?
-  saldo           Float
-  nome            String
-  cpf             String
-  senha           String
-  avatar_url      String
-  Sessions        Sessions[]
-  Transactions    Transactions[]
-  created_at      DateTime       @default(now())
-  updated_at      DateTime       @default(now()) @updatedAt
+  id               String         @id @default(cuid())
+  email            String
+  saldo            Float
+  nome             String
+  cpf              String
+  senha            String
+  avatar_url       String
+  Administrator    UserAdm        @relation(fields: [administrator_id], references: [id])
+  administrator_id String
+  Sessions         Sessions[]
+  Transactions     Transactions[]
+  created_at       DateTime       @default(now())
+  updated_at       DateTime       @default(now()) @updatedAt
 }
 
 model ArenaLocal {

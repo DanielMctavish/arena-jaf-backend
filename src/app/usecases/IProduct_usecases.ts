@@ -6,14 +6,14 @@ import { AdmResponses, params } from "./IUserAdm_usecases"
 interface IProduct_usecases {
 
     //PRODUCTS
-    registerNewProduct(data: IProducts): Promise<AdmResponses>
-    listProducts(data: any, params: params): Promise<AdmResponses>
-    updateNewProduct(data: IProducts, params: params): Promise<AdmResponses>
-    deleteNewProduct(data: any, params: params): Promise<AdmResponses>
+    RegisterNewProduct(data: IProducts): Promise<AdmResponses>
+    ListProducts(data: any, params: params): Promise<AdmResponses>
+    UpdateNewProduct(data: IProducts, params: params): Promise<AdmResponses>
+    DeleteNewProduct(data: any, params: params): Promise<AdmResponses>
 
     //FIREBASE
-    uploadProductCoverImg(data: any, params: params, File: FilePhoto): Promise<AdmResponses>
-    deleteProductCoverImg(data: any, params: params, File: FilePhoto): Promise<AdmResponses>
+    UploadProductCoverImg(data: any, params: params, File: FilePhoto): Promise<AdmResponses>
+    DeleteProductCoverImg(data: any, params: params): Promise<AdmResponses>
 
 }
 
